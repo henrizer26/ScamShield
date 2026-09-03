@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/glass"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="+255 712 345 678"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Pending"
+            android:textColor="@color/accent_warning"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvScamType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Fake House Owner"
+        android:textColor="@color/accent"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Send the money to this number"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:maxLines="2"/>
+
+    <TextView
+        android:id="@+id/tvDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2024-01-01 12:00"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"/>
+
+</LinearLayout>

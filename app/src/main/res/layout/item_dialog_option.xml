@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Row for the scam-options AlertDialog. HistoryFragment attaches the leading
+  vector per position, so the list keeps an icon per action without emoji.
+-->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawablePadding="16dp"
+    android:drawableTint="@color/text_primary"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:textColor="@color/text_primary"
+    android:textSize="16sp"
+    tools:drawableStart="@drawable/content_copy_24"
+    tools:text="Copy Details" />

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kiswahili translations. app_name and channel_tcra are translatable="false". -->
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Nyumbani</string>
+    <string name="nav_report">Ripoti</string>
+    <string name="nav_history">Historia</string>
+    <string name="nav_settings">Mipangilio</string>
+
+    <!-- Home -->
+    <string name="welcome">Karibu Tena</string>
+    <string name="total_scams">Jumla ya Ulaghai</string>
+    <string name="today">Leo</string>
+    <string name="risk_overview">Muhtasari wa Hatari</string>
+    <string name="risk_high">Hatari Kubwa</string>
+    <string name="risk_medium">Hatari ya Wastani</string>
+    <string name="risk_low">Hatari Ndogo</string>
+    <string name="recent_alerts">Arifa za Hivi Karibuni</string>
+    <string name="no_recent_alerts">Hakuna arifa za hivi karibuni</string>
+    <string name="view_history">Angalia Historia</string>
+    <string name="home_all_clear">Hakuna ulaghai uliogunduliwa\nUko salama!</string>
+    <string name="home_scams_detected">Ulaghai %1$d umegunduliwa\nGusa Angalia Historia kwa maelezo</string>
+
+    <!-- Report -->
+    <string name="report_title">Ripoti Ulaghai</string>
+    <string name="report_subtitle">Weka maelezo ya ujumbe unaotiliwa shaka</string>
+    <string name="hint_phone">Weka namba ya simu</string>
+    <string name="hint_message">Weka ujumbe unaotiliwa shaka</string>
+    <string name="action_analyze">Chambua</string>
+    <string name="action_report">Ripoti</string>
+    <string name="quick_report">Ripoti Haraka</string>
+    <string name="channel_network">Mtandao</string>
+    <string name="error_phone_required">Namba ya simu inahitajika</string>
+    <string name="error_message_required">Ujumbe unahitajika</string>
+    <string name="result_scam_detected">ULAGHAI UMEGUNDULIWA!</string>
+    <string name="result_type">Aina: %1$s</string>
+    <string name="result_danger_level">Kiwango cha Hatari: %1$s</string>
+    <string name="result_indicators">Viashiria:</string>
+    <string name="result_safe">Ujumbe huu unaonekana salama.\nHakuna viashiria vya ulaghai.</string>
+    <string name="toast_scam_saved">Ulaghai umehifadhiwa</string>
+    <string name="toast_report_sent">Ripoti imetumwa TCRA (15040)\nSimu: %1$s</string>
+
+    <!-- History -->
+    <string name="history_title">Historia ya Ulaghai</string>
+    <string name="history_subtitle">Ulaghai wote ulioripotiwa</string>
+    <string name="clear_all_history">Futa Historia Yote</string>
+    <string name="history_empty">Hakuna historia ya ulaghai bado\nAnza kuripoti ulaghai!</string>
+    <string name="status_reported">Imeripotiwa</string>
+    <string name="status_pending">Inasubiri</string>
+    <string name="dialog_scam_options">Chaguo za Ulaghai</string>
+    <string name="option_call">Piga Simu</string>
+    <string name="option_report_tcra">Ripoti kwa TCRA</string>
+    <string name="option_delete">Futa</string>
+    <string name="option_copy">Nakili Maelezo</string>
+    <string name="dialog_delete_title">Futa Ulaghai</string>
+    <string name="dialog_delete_message">Una uhakika unataka kufuta ripoti hii ya ulaghai?</string>
+    <string name="dialog_clear_title">Futa Historia Yote</string>
+    <string name="dialog_clear_message">Una uhakika unataka kufuta historia YOTE ya ulaghai?</string>
+    <string name="action_delete">Futa</string>
+    <string name="action_delete_all">Futa Zote</string>
+    <string name="action_cancel">Ghairi</string>
+    <string name="toast_scam_deleted">Ulaghai umefutwa</string>
+    <string name="toast_history_cleared">Historia yote imefutwa</string>
+    <string name="toast_details_copied">Maelezo yamenakiliwa</string>
+    <string name="toast_no_sms_app">Programu ya SMS haipatikani</string>
+    <string name="toast_no_dialer_app">Programu ya kupiga simu haipatikani</string>
+    <string name="clipboard_label">Maelezo ya Ulaghai</string>
+    <string name="copy_phone">Simu: %1$s</string>
+    <string name="copy_type">Aina: %1$s</string>
+    <string name="copy_message">Ujumbe: %1$s</string>
+    <string name="copy_date">Tarehe: %1$s</string>
+    <string name="copy_status">Hali: %1$s</string>
+    <string name="tcra_report_body">Namba %1$s inatuma ulaghai. Aina: %2$s</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Mipangilio</string>
+    <string name="settings_subtitle">Boresha matumizi yako</string>
+    <string name="settings_language">Lugha</string>
+    <string name="settings_theme">Mandhari</string>
+    <string name="settings_clear_history">Futa Historia</string>
+    <string name="settings_about">Kuhusu</string>
+    <string name="settings_version">ScamShield v1.0</string>
+    <string name="dialog_choose_language">Chagua Lugha</string>
+    <string name="dialog_choose_theme">Chagua Mandhari</string>
+    <string name="language_english">Kiingereza</string>
+    <string name="language_swahili">Kiswahili</string>
+    <string name="theme_dark">Giza</string>
+    <string name="theme_light">Mwanga</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_name">Arifa za ScamShield</string>
+    <string name="notif_channel_desc">Arifa za ugunduzi wa ulaghai</string>
+    <string name="notif_scam_title">⚠️ ULAGHAI UMEGUNDULIWA!</string>
+    <string name="notif_scam_text">Kutoka: %1$s\nAina: %2$s</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_language_icon">Lugha</string>
+    <string name="cd_theme_icon">Mandhari</string>
+    <string name="cd_open">Fungua</string>
+</resources>

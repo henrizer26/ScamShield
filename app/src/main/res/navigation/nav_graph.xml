@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.scamshield.HomeFragment"
+        android:label="Home" />
+
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.scamshield.ReportFragment"
+        android:label="Report" />
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.scamshield.HistoryFragment"
+        android:label="History" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.scamshield.SettingsFragment"
+        android:label="Settings" />
+
+</navigation>

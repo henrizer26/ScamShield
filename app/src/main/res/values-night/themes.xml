@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ScamShield" parent="Base.Theme.ScamShield">
+        <!-- Dark background needs light status-bar icons -->
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

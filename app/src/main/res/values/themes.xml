@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shared definition; only the status-bar icon polarity differs per mode. -->
+    <style name="Base.Theme.ScamShield" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/secondary</item>
+
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/bg_app</item>
+        <item name="android:navigationBarColor">@color/bg_app</item>
+        <item name="android:windowBackground">@color/bg_app</item>
+    </style>
+
+    <style name="Theme.ScamShield" parent="Base.Theme.ScamShield">
+        <!-- Light background needs dark status-bar icons -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

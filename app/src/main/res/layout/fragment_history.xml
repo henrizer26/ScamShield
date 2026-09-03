@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/history_24"
+        android:drawablePadding="12dp"
+        android:drawableTint="@color/text_primary"
+        android:gravity="center_vertical"
+        android:text="@string/history_title"
+        android:textColor="@color/text_primary"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/history_subtitle"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnClearAll"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/clear_all_history"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="#FF6B6B"
+        android:visibility="gone"
+        app:icon="@drawable/delete_24"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:iconTint="@color/text_primary"/>
+
+    <!-- Empty State -->
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/glass"
+        android:gravity="center"
+        android:text="@string/history_empty"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:padding="16dp"/>
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
+
+</LinearLayout>
