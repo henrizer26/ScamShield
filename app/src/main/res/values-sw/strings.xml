@@ -4,50 +4,138 @@
 
     <!-- Bottom navigation -->
     <string name="nav_home">Nyumbani</string>
-    <string name="nav_report">Ripoti</string>
+    <string name="nav_scan">Changanua</string>
     <string name="nav_history">Historia</string>
     <string name="nav_settings">Mipangilio</string>
 
-    <!-- Home -->
-    <string name="welcome">Karibu Tena</string>
-    <string name="total_scams">Jumla ya Ulaghai</string>
-    <string name="today">Leo</string>
+    <!-- Splash -->
+    <string name="splash_protect">Linda.</string>
+    <string name="splash_detect">Gundua.</string>
+    <string name="splash_report">Ripoti.</string>
+    <string name="splash_loading">Inapakia…</string>
+
+    <!-- Onboarding -->
+    <string name="onb1_title">Jilinde dhidi ya</string>
+    <string name="onb1_title_accent">Ulaghai wa SMS</string>
+    <string name="onb1_desc">ScamShield hugundua ujumbe unaotiliwa shaka, hukuonya kuhusu hatari na kukusaidia kuripoti ulaghai kwa urahisi.</string>
+    <string name="onb2_title">Arifa za Papo kwa Papo</string>
+    <string name="onb2_desc">Pata arifa mara moja pamoja na kiwango cha hatari ili uchukue hatua kabla haijachelewa.</string>
+    <string name="onb3_title">Kuripoti kwa Urahisi</string>
+    <string name="onb3_desc">Ripoti ulaghai kwa TCRA (15040) na watoa huduma za mtandao kwa hatua rahisi.</string>
+    <string name="action_skip">Ruka</string>
+    <string name="action_next">Endelea</string>
+    <string name="action_get_started">Anza Sasa</string>
+
+    <!-- Dashboard -->
+    <string name="home_greeting">Habari</string>
+    <string name="home_subtitle">Endelea kulindwa dhidi ya ulaghai wa SMS</string>
+    <string name="home_overview">Muhtasari</string>
+    <string name="home_messages_scanned">Ujumbe\nUliochanganuliwa</string>
+    <string name="home_scams_detected_label">Ulaghai\nUliogunduliwa</string>
+    <string name="home_reports_sent">Ripoti\nZilizotumwa</string>
     <string name="risk_overview">Muhtasari wa Hatari</string>
     <string name="risk_high">Hatari Kubwa</string>
     <string name="risk_medium">Hatari ya Wastani</string>
     <string name="risk_low">Hatari Ndogo</string>
+    <string name="donut_total">Jumla</string>
     <string name="recent_alerts">Arifa za Hivi Karibuni</string>
-    <string name="no_recent_alerts">Hakuna arifa za hivi karibuni</string>
-    <string name="view_history">Angalia Historia</string>
+    <string name="home_see_all">Angalia Zote</string>
     <string name="home_all_clear">Hakuna ulaghai uliogunduliwa\nUko salama!</string>
-    <string name="home_scams_detected">Ulaghai %1$d umegunduliwa\nGusa Angalia Historia kwa maelezo</string>
 
-    <!-- Report -->
-    <string name="report_title">Ripoti Ulaghai</string>
-    <string name="report_subtitle">Weka maelezo ya ujumbe unaotiliwa shaka</string>
-    <string name="hint_phone">Weka namba ya simu</string>
-    <string name="hint_message">Weka ujumbe unaotiliwa shaka</string>
-    <string name="action_analyze">Chambua</string>
-    <string name="action_report">Ripoti</string>
-    <string name="quick_report">Ripoti Haraka</string>
-    <string name="channel_network">Mtandao</string>
+    <!-- Analyze -->
+    <string name="analyze_title">Changanua Ujumbe</string>
+    <string name="analyze_subtitle">Chagua namna ya kuweka ujumbe</string>
+    <string name="analyze_paste">Bandika Ujumbe</string>
+    <string name="analyze_paste_sub">Bandika au andika ujumbe hapa</string>
+    <string name="analyze_share">Shiriki Ujumbe</string>
+    <string name="analyze_share_sub">Shiriki kutoka Messages au programu nyingine</string>
+    <string name="analyze_screenshot">Picha ya Skrini (OCR)</string>
+    <string name="analyze_screenshot_sub">Toa maandishi kwenye picha ya skrini</string>
+    <string name="analyze_read_sms">Soma SMS Kiotomatiki</string>
+    <string name="analyze_read_sms_sub">Inahitaji ruhusa</string>
+    <string name="analyze_read_sms_on">Ruhusa imetolewa — SMS zinazoingia zinachanganuliwa</string>
+    <string name="analyze_manual">Kuandika Mwenyewe</string>
+    <string name="analyze_manual_sub">Andika au bandika ujumbe mwenyewe</string>
+    <string name="analyze_now">Changanua Sasa</string>
+    <string name="analyze_ready">Tayari kuchanganua:\nKutoka %1$s\n%2$s</string>
+    <string name="analyze_needs_message">Weka ujumbe kwanza</string>
+    <string name="analyze_clipboard_empty">Ubao wa kunakili hauna kitu</string>
+    <string name="analyze_clipboard_pasted">Ujumbe umebandikwa kutoka ubao wa kunakili</string>
+    <string name="analyze_ocr_unavailable">Kusoma picha ya skrini hakupatikani kwenye kifaa hiki</string>
+    <string name="analyze_share_hint">Fungua Messages, gusa Shiriki kwenye SMS, kisha chagua ScamShield</string>
+    <string name="dialog_add_message">Weka ujumbe</string>
+    <string name="action_add">Weka</string>
     <string name="error_phone_required">Namba ya simu inahitajika</string>
     <string name="error_message_required">Ujumbe unahitajika</string>
-    <string name="result_scam_detected">ULAGHAI UMEGUNDULIWA!</string>
-    <string name="result_type">Aina: %1$s</string>
-    <string name="result_danger_level">Kiwango cha Hatari: %1$s</string>
-    <string name="result_indicators">Viashiria:</string>
-    <string name="result_safe">Ujumbe huu unaonekana salama.\nHakuna viashiria vya ulaghai.</string>
-    <string name="toast_scam_saved">Ulaghai umehifadhiwa</string>
-    <string name="toast_report_sent">Ripoti imetumwa TCRA (15040)\nSimu: %1$s</string>
+    <string name="hint_phone">Weka namba ya simu</string>
+    <string name="hint_message">Weka ujumbe unaotiliwa shaka</string>
+
+    <!-- Scan result -->
+    <string name="result_high_risk">HATARI KUBWA</string>
+    <string name="result_medium_risk">HATARI YA WASTANI</string>
+    <string name="result_low_risk">HATARI NDOGO</string>
+    <string name="result_safe">UNAONEKANA SALAMA</string>
+    <string name="result_scam_subtitle">Ujumbe huu huenda ni ulaghai!</string>
+    <string name="result_safe_subtitle">Hakuna viashiria vya ulaghai vilivyogunduliwa.</string>
+    <string name="result_no_indicators">Hakuna viashiria vilivyogunduliwa.</string>
+
+    <!-- Shared field labels -->
+    <string name="label_scam_type">Aina ya Ulaghai</string>
+    <string name="label_danger_level">Kiwango cha Hatari</string>
+    <string name="label_detected_indicators">Viashiria Vilivyogunduliwa</string>
+    <string name="label_message_preview">Muhtasari wa Ujumbe</string>
+    <string name="label_message">Ujumbe</string>
+    <string name="label_from">Kutoka</string>
+    <string name="label_date_detected">Tarehe ya Kugunduliwa</string>
+    <string name="label_risk_level">Kiwango cha Hatari</string>
+    <string name="label_reporting_to">Inaripotiwa kwa</string>
+    <string name="label_additional_info">Maelezo ya Ziada</string>
+
+    <!-- Scam details -->
+    <string name="details_title">Maelezo ya Ulaghai</string>
+    <string name="action_view_details">Angalia Maelezo</string>
+    <string name="action_report_scam">Ripoti Ulaghai</string>
+    <string name="action_block_number">Zuia Namba</string>
+    <string name="block_title">Zuia Namba</string>
+    <string name="block_message">Android huzuia namba kupitia programu ya Simu. Fungua orodha ya namba zilizozuiwa ili kuongeza %1$s.</string>
+    <string name="action_open_settings">Fungua mipangilio</string>
+    <string name="toast_no_block_screen">Skrini ya namba zilizozuiwa haipatikani</string>
+    <string name="share_subject">Ripoti ya ulaghai</string>
+
+    <!-- Report flow -->
+    <string name="report_title">Ripoti Ulaghai</string>
+    <string name="report_reporting_as">Unaripoti hii kama</string>
+    <string name="report_reporting_to">Inaripotiwa kwa</string>
+    <string name="report_channel_tcra">TCRA (15040)</string>
+    <string name="report_channel_tcra_sub">Ripoti kwa TCRA kwa njia ya SMS</string>
+    <string name="report_channel_operator">Mtoa Huduma</string>
+    <string name="report_channel_operator_sub">Ripoti kwa mtandao wako</string>
+    <string name="report_additional_info">Maelezo ya Ziada (si lazima)</string>
+    <string name="report_notes_hint">Ongeza maelezo zaidi…</string>
+    <string name="report_counter">(%1$d/500)</string>
+    <string name="action_continue_review">Endelea Kukagua</string>
+    <string name="review_title">Tafadhali kagua ripoti yako</string>
+    <string name="action_send_report">Tuma Ripoti</string>
+
+    <!-- Report sent -->
+    <string name="sent_title">Ripoti Imetumwa!</string>
+    <string name="sent_subtitle">Ripoti yako ya ulaghai imetumwa kwa %1$s kikamilifu.</string>
+    <string name="sent_next_title">Nini kinafuata?</string>
+    <string name="sent_next_1">%1$s watakagua ripoti yako</string>
+    <string name="sent_next_2">Hatua zitachukuliwa ikibidi</string>
+    <string name="sent_next_3">Utasaidia kuwalinda wengine</string>
+    <string name="action_done">Nimemaliza</string>
+    <string name="view_history">Angalia Historia</string>
+    <string name="channel_operator">mtandao wako</string>
 
     <!-- History -->
     <string name="history_title">Historia ya Ulaghai</string>
-    <string name="history_subtitle">Ulaghai wote ulioripotiwa</string>
-    <string name="clear_all_history">Futa Historia Yote</string>
     <string name="history_empty">Hakuna historia ya ulaghai bado\nAnza kuripoti ulaghai!</string>
-    <string name="status_reported">Imeripotiwa</string>
-    <string name="status_pending">Inasubiri</string>
+    <string name="history_empty_filter">Hakuna kitu katika kiwango hiki cha hatari</string>
+    <string name="filter_all">Zote</string>
+    <string name="filter_dialog_title">Chuja kwa hatari</string>
+    <string name="date_today">Leo</string>
+    <string name="date_yesterday">Jana</string>
     <string name="dialog_scam_options">Chaguo za Ulaghai</string>
     <string name="option_call">Piga Simu</string>
     <string name="option_report_tcra">Ripoti kwa TCRA</string>
@@ -65,37 +153,50 @@
     <string name="toast_details_copied">Maelezo yamenakiliwa</string>
     <string name="toast_no_sms_app">Programu ya SMS haipatikani</string>
     <string name="toast_no_dialer_app">Programu ya kupiga simu haipatikani</string>
+    <string name="toast_scam_saved">Ulaghai umehifadhiwa kwenye historia</string>
     <string name="clipboard_label">Maelezo ya Ulaghai</string>
     <string name="copy_phone">Simu: %1$s</string>
     <string name="copy_type">Aina: %1$s</string>
     <string name="copy_message">Ujumbe: %1$s</string>
     <string name="copy_date">Tarehe: %1$s</string>
     <string name="copy_status">Hali: %1$s</string>
+    <string name="status_reported">Imeripotiwa</string>
+    <string name="status_pending">Inasubiri</string>
     <string name="tcra_report_body">Namba %1$s inatuma ulaghai. Aina: %2$s</string>
 
     <!-- Settings -->
     <string name="settings_title">Mipangilio</string>
-    <string name="settings_subtitle">Boresha matumizi yako</string>
     <string name="settings_language">Lugha</string>
     <string name="settings_theme">Mandhari</string>
-    <string name="settings_clear_history">Futa Historia</string>
-    <string name="settings_about">Kuhusu</string>
-    <string name="settings_version">ScamShield v1.0</string>
+    <string name="settings_notifications">Arifa</string>
+    <string name="settings_privacy">Faragha na Usalama</string>
+    <string name="settings_help">Msaada</string>
+    <string name="settings_about">Kuhusu ScamShield</string>
+    <string name="settings_reset">Weka upya data za programu</string>
     <string name="dialog_choose_language">Chagua Lugha</string>
     <string name="dialog_choose_theme">Chagua Mandhari</string>
     <string name="language_english">Kiingereza</string>
     <string name="language_swahili">Kiswahili</string>
     <string name="theme_dark">Giza</string>
     <string name="theme_light">Mwanga</string>
+    <string name="settings_version">ScamShield v1.0</string>
+    <string name="about_message">ScamShield hukagua SMS kwa maneno na namba zinazojulikana za ulaghai, huweka historia kwenye simu yako na kukusaidia kuripoti TCRA (15040).\n\nToleo 1.0</string>
+    <string name="privacy_message">Ujumbe hukaguliwa kwenye simu hii pekee. Hakuna kinachopakiwa mtandaoni: historia iko kwenye hifadhidata ya ndani na hufutwa unapoifuta.</string>
+    <string name="help_message">Weka ujumbe kwenye kichupo cha Changanua ili kuukagua. Ulaghai ukigunduliwa, tumia Ripoti Ulaghai kutuma kwa TCRA (15040) au mtandao wako.\n\nNamba ya msaada ya TCRA: 15040</string>
+    <string name="reset_title">Weka upya data za programu</string>
+    <string name="reset_message">Hii itafuta historia ya ulaghai kwenye simu hii na kuonyesha utangulizi tena. Uendelee?</string>
+    <string name="toast_data_cleared">Taarifa za ndani zimefutwa</string>
 
     <!-- Notifications -->
     <string name="notif_channel_name">Arifa za ScamShield</string>
     <string name="notif_channel_desc">Arifa za ugunduzi wa ulaghai</string>
-    <string name="notif_scam_title">⚠️ ULAGHAI UMEGUNDULIWA!</string>
+    <string name="notif_scam_title">Ulaghai umegunduliwa</string>
     <string name="notif_scam_text">Kutoka: %1$s\nAina: %2$s</string>
 
     <!-- Content descriptions -->
-    <string name="cd_language_icon">Lugha</string>
-    <string name="cd_theme_icon">Mandhari</string>
+    <string name="cd_app_logo">Nembo ya ScamShield</string>
+    <string name="cd_back">Rudi</string>
+    <string name="cd_share">Shiriki</string>
+    <string name="cd_filter">Chuja</string>
     <string name="cd_open">Fungua</string>
 </resources>

@@ -1,54 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">ScamShield</string>
+    <string name="empty" translatable="false"> </string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Home</string>
-    <string name="nav_report">Report</string>
+    <string name="nav_scan">Scan</string>
     <string name="nav_history">History</string>
     <string name="nav_settings">Settings</string>
 
-    <!-- Home -->
-    <string name="welcome">Welcome Back</string>
-    <string name="total_scams">Total Scams</string>
-    <string name="today">Today</string>
+    <!-- Splash -->
+    <string name="splash_protect">Protect.</string>
+    <string name="splash_detect">Detect.</string>
+    <string name="splash_report">Report.</string>
+    <string name="splash_loading">Loading…</string>
+
+    <!-- Onboarding -->
+    <string name="onb1_title">Stay Safe from</string>
+    <string name="onb1_title_accent">SMS Scams</string>
+    <string name="onb1_desc">ScamShield detects suspicious messages, alerts you about the danger and helps you report scams easily.</string>
+    <string name="onb2_title">Real-Time Alerts</string>
+    <string name="onb2_desc">Get instant alerts with danger level so you can act before it’s too late.</string>
+    <string name="onb3_title">Easy Reporting</string>
+    <string name="onb3_desc">Report scams to TCRA (15040) and telecom operators with guided steps.</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_next">Next</string>
+    <string name="action_get_started">Get Started</string>
+
+    <!-- Dashboard -->
+    <string name="home_greeting">Hello</string>
+    <string name="home_subtitle">Stay protected from SMS scams</string>
+    <string name="home_overview">Overview</string>
+    <string name="home_messages_scanned">Messages\nScanned</string>
+    <string name="home_scams_detected_label">Scams\nDetected</string>
+    <string name="home_reports_sent">Reports\nSent</string>
     <string name="risk_overview">Risk Overview</string>
     <string name="risk_high">High Risk</string>
     <string name="risk_medium">Medium Risk</string>
     <string name="risk_low">Low Risk</string>
+    <string name="donut_total">Total</string>
     <string name="recent_alerts">Recent Alerts</string>
-    <string name="no_recent_alerts">No recent alerts</string>
-    <string name="view_history">View History</string>
+    <string name="home_see_all">See All</string>
     <string name="home_all_clear">No scams detected yet\nYou are safe!</string>
-    <string name="home_scams_detected">%1$d scams detected\nTap View History for details</string>
 
-    <!-- Report -->
-    <string name="report_title">Report Scam</string>
-    <string name="report_subtitle">Enter the details of the suspicious message</string>
-    <string name="hint_phone">Enter phone number</string>
-    <string name="hint_message">Enter the suspicious message</string>
-    <string name="action_analyze">Analyze</string>
-    <string name="action_report">Report</string>
-    <string name="quick_report">Quick Report</string>
-    <string name="channel_tcra" translatable="false">TCRA</string>
-    <string name="channel_network">Network</string>
+    <!-- Analyze -->
+    <string name="analyze_title">Analyze Message</string>
+    <string name="analyze_subtitle">Choose how you want to add a message</string>
+    <string name="analyze_paste">Paste Message</string>
+    <string name="analyze_paste_sub">Paste or type the message here</string>
+    <string name="analyze_share">Share Message</string>
+    <string name="analyze_share_sub">Share from Messages or other apps</string>
+    <string name="analyze_screenshot">Screenshot (OCR)</string>
+    <string name="analyze_screenshot_sub">Extract text from screenshot</string>
+    <string name="analyze_read_sms">Read SMS Automatically</string>
+    <string name="analyze_read_sms_sub">Requires permission</string>
+    <string name="analyze_read_sms_on">Permission granted — incoming SMS is scanned</string>
+    <string name="analyze_manual">Manual Input</string>
+    <string name="analyze_manual_sub">Type or paste message manually</string>
+    <string name="analyze_now">Analyze Now</string>
+    <string name="analyze_ready">Ready to analyze:\nFrom %1$s\n%2$s</string>
+    <string name="analyze_needs_message">Add a message first</string>
+    <string name="analyze_clipboard_empty">The clipboard is empty</string>
+    <string name="analyze_clipboard_pasted">Message pasted from the clipboard</string>
+    <string name="analyze_ocr_unavailable">Screenshot reading is not available on this device</string>
+    <string name="analyze_share_hint">Open Messages, tap Share on the SMS, then pick ScamShield</string>
+    <string name="dialog_add_message">Add message</string>
+    <string name="action_add">Add</string>
     <string name="error_phone_required">Phone number is required</string>
     <string name="error_message_required">Message is required</string>
-    <string name="result_scam_detected">SCAM DETECTED!</string>
-    <string name="result_type">Type: %1$s</string>
-    <string name="result_danger_level">Danger Level: %1$s</string>
-    <string name="result_indicators">Indicators:</string>
-    <string name="result_safe">This message appears safe.\nNo scam indicators detected.</string>
-    <string name="toast_scam_saved">Scam saved to database</string>
-    <string name="toast_report_sent">Report sent to TCRA (15040)\nPhone: %1$s</string>
+    <string name="hint_phone">Enter phone number</string>
+    <string name="hint_message">Enter the suspicious message</string>
+
+    <!-- Scan result -->
+    <string name="result_high_risk">HIGH RISK</string>
+    <string name="result_medium_risk">MEDIUM RISK</string>
+    <string name="result_low_risk">LOW RISK</string>
+    <string name="result_safe">LOOKS SAFE</string>
+    <string name="result_scam_subtitle">This message is likely a scam!</string>
+    <string name="result_safe_subtitle">No scam indicators were detected.</string>
+    <string name="result_no_indicators">No indicators were detected.</string>
+
+    <!-- Shared field labels -->
+    <string name="label_scam_type">Scam Type</string>
+    <string name="label_danger_level">Danger Level</string>
+    <string name="label_detected_indicators">Detected Indicators</string>
+    <string name="label_message_preview">Message Preview</string>
+    <string name="label_message">Message</string>
+    <string name="label_from">From</string>
+    <string name="label_date_detected">Date Detected</string>
+    <string name="label_risk_level">Risk Level</string>
+    <string name="label_reporting_to">Reporting to</string>
+    <string name="label_additional_info">Additional Info</string>
+
+    <!-- Scam details -->
+    <string name="details_title">Scam Details</string>
+    <string name="action_view_details">View Details</string>
+    <string name="action_report_scam">Report Scam</string>
+    <string name="action_block_number">Block Number</string>
+    <string name="block_title">Block Number</string>
+    <string name="block_message">Android blocks numbers from the Phone app. Open the blocked-numbers list to add %1$s.</string>
+    <string name="action_open_settings">Open settings</string>
+    <string name="toast_no_block_screen">The blocked-numbers screen is not available</string>
+    <string name="share_subject">Scam report</string>
+
+    <!-- Report flow -->
+    <string name="report_title">Report Scam</string>
+    <string name="report_reporting_as">You are reporting this as</string>
+    <string name="report_reporting_to">Reporting to</string>
+    <string name="report_channel_tcra">TCRA (15040)</string>
+    <string name="report_channel_tcra_sub">Report to TCRA via SMS</string>
+    <string name="report_channel_operator">Telecom Operator</string>
+    <string name="report_channel_operator_sub">Report to your network operator</string>
+    <string name="report_additional_info">Additional Information (optional)</string>
+    <string name="report_notes_hint">Add more details…</string>
+    <string name="report_counter">(%1$d/500)</string>
+    <string name="action_continue_review">Continue to Review</string>
+    <string name="review_title">Please review your report</string>
+    <string name="action_send_report">Send Report</string>
+    <string name="none_placeholder" translatable="false">-</string>
+
+    <!-- Report sent -->
+    <string name="sent_title">Report Sent!</string>
+    <string name="sent_subtitle">Your scam report has been sent to %1$s successfully.</string>
+    <string name="sent_next_title">What happens next?</string>
+    <string name="sent_next_1">%1$s will review your report</string>
+    <string name="sent_next_2">Action will be taken if necessary</string>
+    <string name="sent_next_3">You will help keep others safe</string>
+    <string name="action_done">Done</string>
+    <string name="view_history">View History</string>
+    <string name="channel_tcra" translatable="false">TCRA</string>
+    <string name="channel_operator">your operator</string>
 
     <!-- History -->
     <string name="history_title">Scam History</string>
-    <string name="history_subtitle">All reported scams</string>
-    <string name="clear_all_history">Clear All History</string>
     <string name="history_empty">No scam history yet\nStart reporting scams!</string>
-    <string name="status_reported">Reported</string>
-    <string name="status_pending">Pending</string>
+    <string name="history_empty_filter">Nothing at this risk level</string>
+    <string name="filter_all">All</string>
+    <string name="filter_dialog_title">Filter by risk</string>
+    <string name="date_today">Today</string>
+    <string name="date_yesterday">Yesterday</string>
     <string name="dialog_scam_options">Scam Options</string>
     <string name="option_call">Call</string>
     <string name="option_report_tcra">Report to TCRA</string>
@@ -66,37 +156,50 @@
     <string name="toast_details_copied">Details copied to clipboard</string>
     <string name="toast_no_sms_app">SMS app not found</string>
     <string name="toast_no_dialer_app">No dialer app found</string>
+    <string name="toast_scam_saved">Scam saved to history</string>
     <string name="clipboard_label">Scam Details</string>
     <string name="copy_phone">Phone: %1$s</string>
     <string name="copy_type">Type: %1$s</string>
     <string name="copy_message">Message: %1$s</string>
     <string name="copy_date">Date: %1$s</string>
     <string name="copy_status">Status: %1$s</string>
+    <string name="status_reported">Reported</string>
+    <string name="status_pending">Pending</string>
     <string name="tcra_report_body">Namba %1$s inatuma ulaghai. Aina: %2$s</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
-    <string name="settings_subtitle">Customize your experience</string>
     <string name="settings_language">Language</string>
     <string name="settings_theme">Theme</string>
-    <string name="settings_clear_history">Clear History</string>
-    <string name="settings_about">About</string>
-    <string name="settings_version">ScamShield v1.0</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_privacy">Privacy &amp; Security</string>
+    <string name="settings_help">Help &amp; Support</string>
+    <string name="settings_about">About ScamShield</string>
+    <string name="settings_reset">Reset app data</string>
     <string name="dialog_choose_language">Choose Language</string>
     <string name="dialog_choose_theme">Choose Theme</string>
     <string name="language_english">English</string>
     <string name="language_swahili">Kiswahili</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_light">Light</string>
+    <string name="settings_version">ScamShield v1.0</string>
+    <string name="about_message">ScamShield checks SMS for known scam wording and numbers, keeps a local history and helps you report to TCRA (15040).\n\nVersion 1.0</string>
+    <string name="privacy_message">Messages are checked on this phone only. Nothing is uploaded: the history lives in a local database and is cleared when you delete it.</string>
+    <string name="help_message">Add a message on the Scan tab to check it. When a scam is found, use Report Scam to send it to TCRA (15040) or your operator.\n\nTCRA helpline: 15040</string>
+    <string name="reset_title">Reset app data</string>
+    <string name="reset_message">This clears the scam history on this phone and shows the intro again. Continue?</string>
+    <string name="toast_data_cleared">Local data cleared</string>
 
     <!-- Notifications -->
     <string name="notif_channel_name">ScamShield Alerts</string>
     <string name="notif_channel_desc">Notifications for scam detection</string>
-    <string name="notif_scam_title">⚠️ SCAM DETECTED!</string>
+    <string name="notif_scam_title">Scam detected</string>
     <string name="notif_scam_text">From: %1$s\nType: %2$s</string>
 
     <!-- Content descriptions -->
-    <string name="cd_language_icon">Language</string>
-    <string name="cd_theme_icon">Theme</string>
+    <string name="cd_app_logo">ScamShield logo</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_share">Share</string>
+    <string name="cd_filter">Filter</string>
     <string name="cd_open">Open</string>
 </resources>

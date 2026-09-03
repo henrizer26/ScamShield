@@ -1,63 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- History row: risk tile, scam type and number, date on the right. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/glass"
-    android:padding="16dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_card"
+    android:baselineAligned="false"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="14dp">
+
+    <FrameLayout
+        android:id="@+id/tileRisk"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_tile"
+        tools:backgroundTint="@color/risk_high_bg">
+
+        <ImageView
+            android:id="@+id/ivRisk"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/shield_alert_24"
+            tools:tint="@color/risk_high" />
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="14dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvScamType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Prize Scam" />
 
         <TextView
             android:id="@+id/tvPhone"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="+255 712 345 678"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textSize="14sp"
+            tools:text="+255 712 345 678" />
 
         <TextView
-            android:id="@+id/tvStatus"
+            android:id="@+id/tvRiskLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Pending"
-            android:textColor="@color/accent_warning"
-            android:textSize="12sp"/>
+            android:layout_marginTop="3dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="High Risk"
+            tools:textColor="@color/risk_high" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvScamType"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Fake House Owner"
-        android:textColor="@color/accent"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp"/>
+        android:layout_marginStart="10dp"
+        android:gravity="end"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Send the money to this number"
-        android:textColor="@color/text_secondary"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp"
-        android:maxLines="2"/>
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            tools:text="Today" />
 
-    <TextView
-        android:id="@+id/tvDateTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="2024-01-01 12:00"
-        android:textColor="@color/text_secondary"
-        android:textSize="12sp"
-        android:layout_marginTop="4dp"/>
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            tools:text="10:30 AM" />
+    </LinearLayout>
 
 </LinearLayout>

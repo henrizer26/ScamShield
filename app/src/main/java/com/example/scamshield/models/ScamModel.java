@@ -1,6 +1,8 @@
 package com.example.scamshield.models;
 
-public class ScamModel {
+import java.io.Serializable;
+
+public class ScamModel implements Serializable {
     private int id;
     private String phoneNumber;
     private String message;

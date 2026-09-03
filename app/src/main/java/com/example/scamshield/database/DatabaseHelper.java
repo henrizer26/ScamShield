@@ -150,7 +150,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    // 8. COUNT - Get today's scams
+    // 8. COUNT - Get reported scams, for the dashboard "Reports Sent" tile
+    public int getReportedCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT COUNT(*) FROM " + TABLE_SCAMS + " WHERE " + COLUMN_IS_REPORTED + "=1", null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        cursor.close();
+        return count;
+    }
+
+    // 9. COUNT - Get today's scams
     public int getTodayScams() {
         SQLiteDatabase db = this.getReadableDatabase();
         String todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());

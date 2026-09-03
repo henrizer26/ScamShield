@@ -5,17 +5,38 @@
         <!-- Colors -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:colorBackground">@color/bg_app</item>
 
-        <!-- Status Bar -->
+        <!-- System bars follow the page, the reference has no coloured bar -->
         <item name="android:statusBarColor">@color/bg_app</item>
         <item name="android:navigationBarColor">@color/bg_app</item>
         <item name="android:windowBackground">@color/bg_app</item>
+
+        <!-- Dialogs and their buttons stay on brand -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.ScamShield.Dialog</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.ScamShield.Dialog</item>
     </style>
 
     <style name="Theme.ScamShield" parent="Base.Theme.ScamShield">
         <!-- Light background needs dark status-bar icons -->
         <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Splash keeps the dark brand ground in both modes. -->
+    <style name="Theme.ScamShield.Splash" parent="Base.Theme.ScamShield">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/splash_bg_top</item>
+        <item name="android:navigationBarColor">@color/splash_bg_bottom</item>
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
+    <style name="ThemeOverlay.ScamShield.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:background">@color/bg_card</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
 </resources>

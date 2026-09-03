@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_app">
 
-    <!-- Main Content -->
+    <!-- Tab content -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -19,21 +19,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <!-- Bottom Navigation -->
+    <!-- Four tabs with a gap in the middle for the scan button -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="66dp"
         android:background="@drawable/bg_bottom_nav"
-        app:itemIconSize="28dp"
+        app:elevation="0dp"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@color/bottom_nav_item"
+        app:itemRippleColor="@null"
         app:itemTextAppearanceActive="@style/BottomNavText"
         app:itemTextAppearanceInactive="@style/BottomNavText"
-        app:menu="@menu/bottom_nav_menu"
+        app:itemTextColor="@color/bottom_nav_item"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <!-- Scan action, floating over the gap -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabScan"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:contentDescription="@string/nav_scan"
+        android:src="@drawable/center_focus_24"
+        app:backgroundTint="@color/primary"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:fabCustomSize="58dp"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottom_nav"
+        app:layout_constraintVertical_bias="0.28"
+        app:maxImageSize="26dp"
+        app:tint="@color/on_primary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

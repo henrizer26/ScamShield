@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_card"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="@color/bg_app"
-    android:padding="24dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="9:41"
-        android:textColor="@color/text_primary"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"/>
+    android:paddingStart="32dp"
+    android:paddingTop="48dp"
+    android:paddingEnd="32dp">
 
     <ImageView
         android:id="@+id/ivOnboardingImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/onboard1"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="32dp"
-        android:scaleType="fitCenter"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/onboard1" />
 
     <TextView
         android:id="@+id/tvOnboardingTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Stay Safe from SMS Scams"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
         android:textColor="@color/text_primary"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:textAlignment="center"/>
+        tools:text="Stay Safe from" />
+
+    <TextView
+        android:id="@+id/tvOnboardingAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/primary"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:text="SMS Scams"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvOnboardingDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ScamShield detects suspicious messages, alerts you about the danger and helps you report scams easily."
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:lineSpacingExtra="6dp"
         android:textColor="@color/text_secondary"
         android:textSize="16sp"
-        android:textAlignment="center"
-        android:layout_marginTop="16dp"
-        android:lineSpacingExtra="4dp"/>
+        tools:text="ScamShield detects suspicious messages, alerts you about the danger and helps you report scams easily." />
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import com.example.scamshield.database.DatabaseHelper;
+import com.example.scamshield.utils.AppPrefs;
 import com.example.scamshield.utils.NotificationHelper;
 import com.example.scamshield.utils.ScamDetector;
 import com.example.scamshield.utils.WhitelistUtils;
@@ -57,6 +58,9 @@ public class SmsReceiver extends BroadcastReceiver {
     private void checkForScam(Context context, String sender, String message) {
         // Use ScamDetector
         ScamDetector.ScamResult result = ScamDetector.detect(message, sender);
+
+        // Counts towards "Messages Scanned" on the dashboard, scam or not.
+        AppPrefs.incrementScannedCount(context);
 
         if (result.isScam) {
             // Save to database

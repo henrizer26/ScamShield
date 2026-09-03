@@ -3,24 +3,51 @@
     <!-- Dark (night) palette. Mirrors every name in values/colors.xml. -->
 
     <!-- Brand -->
-    <color name="primary">#00D4FF</color>
-    <color name="primary_dark">#0099CC</color>
-    <color name="primary_light">#66E5FF</color>
+    <color name="primary">#8B6BFF</color>
+    <color name="primary_dark">#5B34E8</color>
+    <color name="primary_light">#241D45</color>
+    <color name="primary_soft">#3A2E75</color>
+    <color name="on_primary">#FFFFFF</color>
 
-    <color name="secondary">#4C9AFF</color>
-    <color name="secondary_dark">#1A73E8</color>
+    <!-- Risk scale -->
+    <color name="risk_high">#FF6B6B</color>
+    <color name="risk_high_bg">#3A1D22</color>
+    <color name="risk_medium">#FFC24B</color>
+    <color name="risk_medium_bg">#3A2E18</color>
+    <color name="risk_low">#5FD68A</color>
+    <color name="risk_low_bg">#16321F</color>
 
+    <!-- Status -->
     <color name="accent">#FF6B6B</color>
-    <color name="accent_warning">#FFD93D</color>
-    <color name="accent_success">#6BCB77</color>
+    <color name="accent_warning">#FFC24B</color>
+    <color name="accent_success">#5FD68A</color>
+    <color name="success_strong">#4CC96A</color>
+    <color name="info_blue">#6FBCFF</color>
 
     <!-- Surfaces -->
-    <color name="bg_app">#0A0E1A</color>
-    <color name="bg_card">#151E2F</color>
-    <color name="glass">#1AFFFFFF</color>
-    <color name="glass_border">#33FFFFFF</color>
+    <color name="bg_app">#0F1020</color>
+    <color name="bg_card">#191A2E</color>
+    <color name="bg_muted">#23243A</color>
+    <color name="divider">#262840</color>
+    <color name="glass">#191A2E</color>
+    <color name="glass_border">#262840</color>
+
+    <!-- Result screen (scan verdict) -->
+    <color name="result_bg_top">#2A1620</color>
+    <color name="result_bg_bottom">#0F1020</color>
+    <color name="result_preview_bg">#3A1D22</color>
+
+    <!-- Splash: identical in both modes, it is always the dark brand screen -->
+    <color name="splash_bg_top">#1B0770</color>
+    <color name="splash_bg_bottom">#0B0148</color>
+    <color name="splash_protect">#6C63FF</color>
+    <color name="splash_detect">#22C55E</color>
+    <color name="splash_report">#FF7A45</color>
+    <color name="splash_check">#FFAE00</color>
+    <color name="splash_track">#3B2F7A</color>
 
     <!-- Text -->
     <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#8899AA</color>
+    <color name="text_secondary">#9AA0B4</color>
+    <color name="text_tertiary">#6E748A</color>
 </resources>

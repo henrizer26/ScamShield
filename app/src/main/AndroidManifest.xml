@@ -37,11 +37,11 @@
         android:theme="@style/Theme.ScamShield"
         tools:targetApi="31">
 
-        <!-- Splash Activity (Launcher) -->
+        <!-- Splash Activity (Launcher). Keeps the dark brand ground while it loads. -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.ScamShield">
+            android:theme="@style/Theme.ScamShield.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -54,11 +54,18 @@
             android:exported="false"
             android:theme="@style/Theme.ScamShield" />
 
-        <!-- Main Activity -->
+        <!-- Main Activity. Exported so an SMS can be shared into the scan screen. -->
         <activity
             android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ScamShield" />
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ScamShield">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
 
         <!-- SMS Receiver -->
         <receiver
