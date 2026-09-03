@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Verdict screen wash: the risk tint fades out towards the buttons. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="@color/result_bg_top"
+        android:endColor="@color/result_bg_bottom"
+        android:type="linear" />
+</shape>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Page dot. Each state is wrapped in a sized layer so the tab strip cannot
+  stretch the oval to fill the tab.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <layer-list>
+            <item
+                android:width="9dp"
+                android:height="9dp"
+                android:gravity="center">
+                <shape android:shape="oval">
+                    <solid android:color="@color/primary" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item
+                android:width="9dp"
+                android:height="9dp"
+                android:gravity="center">
+                <shape android:shape="oval">
+                    <solid android:color="@color/bg_muted" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

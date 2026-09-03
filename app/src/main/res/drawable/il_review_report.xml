@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Review step: a filled-in report with a green approval shield. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <path
+        android:fillColor="@color/primary_light"
+        android:pathData="M95,75 m-58,0 a58,58 0 1,0 116,0 a58,58 0 1,0 -116,0" />
+    <path
+        android:fillColor="@color/bg_card"
+        android:strokeColor="@color/primary"
+        android:strokeWidth="5"
+        android:pathData="M66,28 H124 A8,8 0 0 1 132,36 V114 A8,8 0 0 1 124,122 H66 A8,8 0 0 1 58,114 V36 A8,8 0 0 1 66,28 Z" />
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M84,20 H106 A4,4 0 0 1 110,24 V30 A4,4 0 0 1 106,34 H84 A4,4 0 0 1 80,30 V24 A4,4 0 0 1 84,20 Z" />
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M95,16 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M74,51 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="@color/primary_soft"
+        android:pathData="M86,48 H118 A3,3 0 0 1 118,54 H86 A3,3 0 0 1 86,48 Z" />
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M74,71 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="@color/primary_soft"
+        android:pathData="M86,68 H114 A3,3 0 0 1 114,74 H86 A3,3 0 0 1 86,68 Z" />
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M74,91 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="@color/primary_soft"
+        android:pathData="M86,88 H110 A3,3 0 0 1 110,94 H86 A3,3 0 0 1 86,88 Z" />
+    <path
+        android:fillColor="@color/risk_low"
+        android:pathData="M140,56 L164,65 V90 C164,103 153,114 140,118 C127,114 116,103 116,90 V65 Z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M130,88 L137,95 L151,79" />
+</vector>

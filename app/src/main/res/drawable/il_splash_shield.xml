@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Splash mark: white shield, indigo face, amber tick. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="140dp"
+    android:height="160dp"
+    android:viewportWidth="120"
+    android:viewportHeight="140">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,6 L112,25 V73 C112,101 90,125 60,135 C30,125 8,101 8,73 V25 Z" />
+    <path
+        android:fillColor="#4B1DD8"
+        android:pathData="M60,20 L100,34 V72 C100,93 82,112 60,121 C38,112 20,93 20,72 V34 Z" />
+    <path
+        android:strokeColor="@color/splash_check"
+        android:strokeWidth="11"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M41,72 L54,86 L82,54" />
+</vector>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Success state: green tick with confetti. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="220dp"
+    android:height="150dp"
+    android:viewportWidth="220"
+    android:viewportHeight="150">
+    <path
+        android:fillColor="@color/success_strong"
+        android:pathData="M110,75 m-46,0 a46,46 0 1,0 92,0 a46,46 0 1,0 -92,0" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="12"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M89,76 L103,90 L133,58" />
+    <path android:fillColor="#F59E0B" android:pathData="M36,44 l6,6 -6,6 -6,-6 z" />
+    <path android:fillColor="#E53935" android:pathData="M182,30 l6,6 -6,6 -6,-6 z" />
+    <path android:fillColor="#22A94A" android:pathData="M196,66 l5,5 -5,5 -5,-5 z" />
+    <path android:fillColor="#6C63FF" android:pathData="M64,26 l6,6 -6,6 -6,-6 z" />
+    <path android:fillColor="#C7BFF5" android:pathData="M60,62 l5,5 -5,5 -5,-5 z" />
+    <path android:fillColor="#C7BFF5" android:pathData="M170,60 l5,5 -5,5 -5,-5 z" />
+    <path android:fillColor="#F59E0B" android:pathData="M74,102 l5,5 -5,5 -5,-5 z" />
+    <path android:fillColor="#4C7A2E" android:pathData="M38,94 l5,5 -5,5 -5,-5 z" />
+    <path android:fillColor="#E53935" android:pathData="M158,98 l6,6 -6,6 -6,-6 z" />
+    <path android:fillColor="#E53935" android:pathData="M182,88 l6,6 -6,6 -6,-6 z" />
+    <path android:fillColor="#F59E0B" android:pathData="M24,66 l5,5 -5,5 -5,-5 z" />
+</vector>
