@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.example.scamshield.models.ScamModel;
 import com.example.scamshield.utils.RiskUi;
+import com.example.scamshield.utils.ScamDetector;
 import com.example.scamshield.utils.ScanArgs;
 import java.util.List;
 
@@ -27,8 +28,12 @@ public class ScanResultFragment extends Fragment {
 
         final Bundle args = getArguments();
         ScamModel scam = ScanArgs.scam(args);
-        boolean isScam = args != null && args.getBoolean(ScanArgs.IS_SCAM, true);
-        String risk = isScam
+        String classification = args == null ? ScamDetector.SCAM
+                : args.getString(ScanArgs.CLASSIFICATION,
+                args.getBoolean(ScanArgs.IS_SCAM, true) ? ScamDetector.SCAM : ScamDetector.SAFE);
+        boolean isRisky = !ScamDetector.SAFE.equals(classification);
+        int score = args == null ? 0 : args.getInt(ScanArgs.SCORE, 0);
+        String risk = isRisky
                 ? RiskUi.bucket(args == null ? null : args.getString(ScanArgs.DANGER))
                 : RiskUi.LOW;
 
@@ -44,19 +49,29 @@ public class ScanResultFragment extends Fragment {
         TextView tvSubtitle = view.findViewById(R.id.tvVerdictSubtitle);
         TextView tvScamType = view.findViewById(R.id.tvScamType);
         TextView tvDangerLevel = view.findViewById(R.id.tvDangerLevel);
+        TextView tvRiskScore = view.findViewById(R.id.tvRiskScore);
         TextView tvPreview = view.findViewById(R.id.tvMessagePreview);
         View dotDanger = view.findViewById(R.id.dotDanger);
         LinearLayout indicatorContainer = view.findViewById(R.id.indicatorContainer);
 
-        ivVerdict.setImageResource(isScam ? R.drawable.shield_alert_24 : R.drawable.shield_check_24);
+        ivVerdict.setImageResource(isRisky ? R.drawable.shield_alert_24 : R.drawable.shield_check_24);
         ImageViewCompat.setImageTintList(ivVerdict, ColorStateList.valueOf(riskColor));
 
-        tvTitle.setText(isScam ? RiskUi.headline(risk) : R.string.result_safe);
+        tvTitle.setText(ScamDetector.SCAM.equals(classification)
+                ? R.string.result_class_scam
+                : ScamDetector.SUSPICIOUS.equals(classification)
+                ? R.string.result_class_suspicious
+                : R.string.result_class_safe);
         tvTitle.setTextColor(riskColor);
-        tvSubtitle.setText(isScam ? R.string.result_scam_subtitle : R.string.result_safe_subtitle);
+        tvSubtitle.setText(ScamDetector.SCAM.equals(classification)
+                ? R.string.result_scam_subtitle
+                : ScamDetector.SUSPICIOUS.equals(classification)
+                ? R.string.result_suspicious_subtitle
+                : R.string.result_safe_subtitle);
 
         tvScamType.setText(scam == null ? "" : scam.getScamType());
         tvDangerLevel.setText(RiskUi.label(risk));
+        tvRiskScore.setText(getString(R.string.result_score, score));
         dotDanger.setBackgroundTintList(ColorStateList.valueOf(riskColor));
 
         tvPreview.setText(scam == null ? "" : scam.getMessage());

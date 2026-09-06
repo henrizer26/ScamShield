@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Git &amp; GitHub Practical Handbook</title>
+<style>
+@page { size:A4; margin:17mm; }
+* { box-sizing:border-box; }
+body { color:#172033; font:10.5pt/1.48 "Segoe UI",Arial,sans-serif; }
+h1,h2,h3 { color:#103d63; page-break-after:avoid; }
+h1 { font-size:30pt; margin:0 0 12px; }
+h2 { font-size:18pt; margin:26px 0 10px; padding-bottom:5px; border-bottom:2px solid #d7e8f6; }
+h3 { font-size:13pt; margin:18px 0 6px; }
+p { margin:6px 0 10px; }
+li { margin:4px 0; }
+code { color:#123b59; background:#edf4f8; padding:1px 4px; border-radius:3px; font:9.3pt Consolas,monospace; }
+pre { color:#f3f8fb; background:#102a43; padding:11px 13px; border-radius:7px; white-space:pre-wrap; font:9.1pt/1.43 Consolas,monospace; page-break-inside:avoid; }
+table { width:100%; margin:9px 0 15px; border-collapse:collapse; page-break-inside:avoid; }
+th,td { padding:7px 8px; border:1px solid #cbd9e3; text-align:left; vertical-align:top; }
+th { color:#103d63; background:#e9f4fa; }
+tr:nth-child(even) td { background:#f8fbfd; }
+.cover { min-height:245mm; padding:38mm 6mm 0; page-break-after:always; }
+.cover .tag { color:#1380a9; font-weight:700; letter-spacing:1.3px; text-transform:uppercase; }
+.cover .subtitle { max-width:155mm; color:#53677a; font-size:16pt; line-height:1.42; }
+.bar { width:45mm; height:5px; margin:23px 0; background:#1699bd; border-radius:4px; }
+.meta { margin-top:38mm; color:#6a7887; }
+.box { margin:12px 0 15px; padding:10px 13px; border-left:4px solid #1686ad; background:#edf8fc; page-break-inside:avoid; }
+.warn { border-color:#c46a16; background:#fff6e9; }
+.danger { border-color:#bd3535; background:#fff0f0; }
+.good { border-color:#238359; background:#edf9f3; }
+.flow { margin:13px 0; padding:14px; text-align:center; color:#103d63; background:#eaf4fb; border:1px solid #bdd8e8; border-radius:8px; font:bold 11pt Consolas,monospace; }
+.break { page-break-before:always; }
+.small { color:#697989; font-size:9pt; }
+</style>
+</head>
+<body>
+<section class="cover">
+<div class="tag">Practical developer handbook</div>
+<h1>Git &amp; GitHub</h1>
+<div class="bar"></div>
+<p class="subtitle">A beginner-friendly guide to owning your project history: commands, daily workflow, branches, collaboration, conflicts, and safe recovery.</p>
+<div class="meta"><p><strong>Prepared for:</strong> ScamShield development</p><p><strong>Environment:</strong> Windows, PowerShell, Android Studio</p><p><strong>Edition:</strong> September 2026</p></div>
+</section>
+
+<h2>Contents</h2>
+<ol><li>The mental model</li><li>Vocabulary</li><li>Setup and authentication</li><li>Cloning and pulling repositories</li><li>The daily workflow</li><li>Commands explained</li><li>Collaboration and pull requests</li><li>Conflicts and recovery</li><li>Android Studio equivalents</li><li>Practice exercise</li><li>Cheat sheet</li></ol>
+<div class="box"><strong>The habit that prevents most problems:</strong> run <code>git status</code> before and after every important operation. Read Git's response carefully.</div>
+
+<h2>1. The mental model</h2>
+<p><strong>Git</strong> tracks versions on your computer. <strong>GitHub</strong> hosts a remote Git repository and adds sharing, permissions, reviews, issues, and pull requests.</p>
+<div class="flow">Working files → Staging area → Local commits → GitHub<br>edit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git add &nbsp;&nbsp;&nbsp;&nbsp; git commit &nbsp;&nbsp;&nbsp;&nbsp; git push</div>
+<ul><li><strong>Working files:</strong> files being edited.</li><li><strong>Staging area:</strong> changes selected for the next commit.</li><li><strong>Local repository:</strong> history in your computer's hidden <code>.git</code> directory.</li><li><strong>Remote repository:</strong> shared history, normally on GitHub.</li></ul>
+<p>A commit is local until you push it. Git can work without internet; GitHub synchronization cannot.</p>
+
+<h2>2. Essential vocabulary</h2>
+<table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Repository</td><td>A project plus its complete Git history.</td></tr>
+<tr><td>Commit</td><td>A saved snapshot with an ID, author, date, and message.</td></tr>
+<tr><td>Branch</td><td>An isolated line of development.</td></tr>
+<tr><td><code>main</code>/<code>master</code></td><td>The usual default branch. ScamShield currently uses <code>master</code>.</td></tr>
+<tr><td>Remote</td><td>A named connection to another repository URL.</td></tr>
+<tr><td><code>origin</code></td><td>The conventional name for the repository you cloned.</td></tr>
+<tr><td>Clone</td><td>Download a repository for the first time, including history.</td></tr>
+<tr><td>Fetch</td><td>Download remote history without changing current files.</td></tr>
+<tr><td>Pull</td><td>Fetch, then integrate remote changes.</td></tr>
+<tr><td>Push</td><td>Upload local commits.</td></tr>
+<tr><td>Merge</td><td>Combine two branch histories.</td></tr>
+<tr><td>Pull request</td><td>A GitHub proposal to review and merge branches. It is not <code>git pull</code>.</td></tr>
+<tr><td>Fork</td><td>Your GitHub copy of someone else's repository.</td></tr></table>
+
+<h2>3. One-time setup and authentication</h2>
+<p>Set the author name and email stored inside your commits:</p>
+<pre>git config --global user.name "Your Real Name"
+git config --global user.email "your-github-email@example.com"
+git config --global --list</pre>
+<p><code>--global</code> applies to repositories on this computer. Omit it to set an identity only for the current repository.</p>
+<p>For HTTPS remotes, sign in through Android Studio's browser prompt or Git Credential Manager. GitHub does not accept a normal account password for Git operations; use a personal access token if a terminal password prompt requires a credential.</p>
+<div class="danger box"><strong>Never commit secrets:</strong> passwords, API keys, tokens, production signing keys, service-account files, or sensitive <code>.env</code> files. Android's <code>local.properties</code> normally stays untracked. Deleting a leaked secret later does not remove it from older history.</div>
+
+<h2>4. Getting a remote repository</h2>
+<h3>Not on your computer yet: clone</h3>
+<pre>cd C:\Users\Administrator\AndroidStudioProjects
+git clone https://github.com/OWNER/REPOSITORY.git
+cd REPOSITORY
+git status
+git remote -v</pre>
+<p><code>clone</code> creates a directory, downloads files and history, adds a remote named <code>origin</code>, and checks out the default branch.</p>
+<h3>Already on your computer: fetch or pull</h3>
+<pre>git status
+git fetch origin
+git pull --ff-only</pre>
+<p><code>fetch</code> lets you inspect remote work safely. <code>pull</code> downloads and integrates it. <code>--ff-only</code> refuses to create an unexpected merge commit.</p>
+<div class="warn box"><strong>Before pulling:</strong> make sure <code>git status</code> is clean. Commit meaningful changes or stash unfinished changes first.</div>
+<h3>Permission cases</h3>
+<ul><li><strong>Collaborator:</strong> accept the invitation, clone the original repo, then push a feature branch.</li><li><strong>No write permission:</strong> fork the repository, clone your fork, then open a pull request back to the original.</li><li><strong>Private repository:</strong> you need permission and valid authentication even to clone it.</li></ul>
+
+<h2 class="break">5. The safe daily workflow</h2>
+<p>Memorize this routine. Replace <code>main</code> with <code>master</code> for ScamShield or any repository using that default.</p>
+<h3>1 — Update your stable branch</h3>
+<pre>git switch main
+git pull --ff-only origin main</pre>
+<h3>2 — Create a task branch</h3>
+<pre>git switch -c feature/descriptive-name</pre>
+<p>Examples: <code>feature/dark-mode</code>, <code>fix/history-crash</code>, <code>docs/setup-guide</code>.</p>
+<h3>3 — Edit, test, and inspect</h3>
+<pre>git status
+git diff</pre>
+<h3>4 — Stage deliberately</h3>
+<pre>git add app/src/main/res/values/strings.xml
+git diff --staged
+git status</pre>
+<p><code>git add -A</code> stages every new, modified, and deleted file. Use it only after reviewing status.</p>
+<h3>5 — Commit a focused result</h3>
+<pre>git commit -m "Remove user profile fields"</pre>
+<p>Good messages complete “This commit will…” Examples: “Fix empty history crash” or “Add Swahili settings labels.” Avoid “changes,” “update,” and “final.”</p>
+<h3>6 — Push your branch</h3>
+<pre>git push -u origin feature/descriptive-name</pre>
+<p><code>-u</code> remembers the tracking relationship. Later, <code>git push</code> is sufficient.</p>
+<h3>7 — Open a pull request</h3>
+<ol><li>Choose your feature branch as the source.</li><li>Choose <code>main</code>/<code>master</code> as the destination.</li><li>Explain what changed, why, and how you tested it.</li><li>Review the changed files yourself.</li><li>Merge after review and automated checks pass.</li></ol>
+<div class="good box">Small, focused commits are easier to review, test, understand, and undo.</div>
+
+<h2>6. Commands explained</h2>
+<table><tr><th>Command</th><th>Result</th><th>Changes files?</th></tr>
+<tr><td><code>git status</code></td><td>Branch and file states</td><td>No</td></tr>
+<tr><td><code>git diff</code></td><td>Unstaged line changes</td><td>No</td></tr>
+<tr><td><code>git diff --staged</code></td><td>Exact next-commit content</td><td>No</td></tr>
+<tr><td><code>git log --oneline</code></td><td>Compact commit history</td><td>No</td></tr>
+<tr><td><code>git remote -v</code></td><td>Remote names and URLs</td><td>No</td></tr>
+<tr><td><code>git add FILE</code></td><td>Select changes for commit</td><td>Staging only</td></tr>
+<tr><td><code>git commit -m "..."</code></td><td>Create local snapshot</td><td>Creates history</td></tr>
+<tr><td><code>git fetch origin</code></td><td>Download remote history</td><td>Not working files</td></tr>
+<tr><td><code>git pull --ff-only</code></td><td>Download and fast-forward</td><td>Yes</td></tr>
+<tr><td><code>git push</code></td><td>Upload local commits</td><td>Changes remote</td></tr>
+<tr><td><code>git switch BRANCH</code></td><td>Change active branch</td><td>Yes</td></tr>
+<tr><td><code>git switch -c BRANCH</code></td><td>Create and enter branch</td><td>Branch metadata</td></tr></table>
+<h3>Read a push command word by word</h3>
+<pre>git push -u origin feature/remove-profile</pre>
+<ul><li><code>git</code>: run Git.</li><li><code>push</code>: upload commits.</li><li><code>-u</code>: remember tracking.</li><li><code>origin</code>: destination nickname.</li><li><code>feature/remove-profile</code>: branch to publish.</li></ul>
+
+<h2>7. Collaboration, branches, and forks</h2>
+<h3>Direct collaborator</h3>
+<pre>git clone https://github.com/TEAM/PROJECT.git
+cd PROJECT
+git switch -c feature/my-change
+# edit, test, add, commit
+git push -u origin feature/my-change
+# open a pull request on GitHub</pre>
+<h3>Fork workflow</h3>
+<p>Use <code>origin</code> for your fork and <code>upstream</code> for the original:</p>
+<pre>git clone https://github.com/YOU/PROJECT.git
+cd PROJECT
+git remote add upstream https://github.com/ORIGINAL/PROJECT.git
+git remote -v
+
+git fetch upstream
+git switch main
+git merge --ff-only upstream/main
+git push origin main</pre>
+<p>Create a feature branch, push it to your fork, then open a pull request from your fork/feature branch into the original/main branch.</p>
+<h3>Update a feature branch</h3>
+<pre>git fetch origin
+git merge origin/main</pre>
+<p>Some teams prefer rebase. Follow the team convention. Do not rebase a shared branch without coordination because rebase rewrites commit identities.</p>
+
+<h2>8. Conflicts and safe recovery</h2>
+<p>A conflict means Git cannot decide how to combine edits, commonly because two people changed the same lines.</p>
+<pre>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Your current version
+=======
+The incoming version
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main</pre>
+<ol><li>Run <code>git status</code>.</li><li>Understand both versions.</li><li>Edit the correct final result and remove markers.</li><li>Build and test.</li><li>Run <code>git add FILE</code> for resolved files.</li><li>Complete the merge with <code>git commit</code> if requested.</li></ol>
+<p>Abandon an unfinished merge with:</p>
+<pre>git merge --abort</pre>
+<div class="warn box">Do not blindly choose “Accept Yours” or “Accept Theirs.” The correct result may combine both.</div>
+
+<h3>Undo guide</h3>
+<table><tr><th>Situation</th><th>Safe command</th></tr>
+<tr><td>Staged the wrong file</td><td><code>git restore --staged PATH</code> — preserves edits.</td></tr>
+<tr><td>Pause unfinished work</td><td><code>git stash push -m "unfinished work"</code>, later <code>git stash pop</code>.</td></tr>
+<tr><td>Undo a published commit</td><td><code>git revert COMMIT_HASH</code> — adds a reverse commit.</td></tr>
+<tr><td>Inspect a commit</td><td><code>git show COMMIT_HASH</code>.</td></tr>
+<tr><td>Find commit IDs</td><td><code>git log --oneline --decorate -15</code>.</td></tr></table>
+<div class="danger box"><strong>High risk:</strong> <code>git reset --hard</code> can destroy uncommitted work. <code>git push --force</code> can overwrite shared history. Never use either as a general fix.</div>
+<p>Before a complex operation, name the current commit as a safety point:</p>
+<pre>git branch backup/before-merge</pre>
+<p>This does not preserve uncommitted edits; commit or stash those separately.</p>
+
+<h2>9. Android Studio equivalents</h2>
+<table><tr><th>Goal</th><th>Android Studio</th><th>Command</th></tr>
+<tr><td>Inspect</td><td>Commit tool window</td><td><code>git status</code>/<code>git diff</code></td></tr>
+<tr><td>Commit</td><td><code>Ctrl+K</code></td><td><code>git commit</code></td></tr>
+<tr><td>Push</td><td><code>Ctrl+Shift+K</code></td><td><code>git push</code></td></tr>
+<tr><td>Fetch</td><td>Git → Fetch</td><td><code>git fetch</code></td></tr>
+<tr><td>Pull</td><td>Git → Pull</td><td><code>git pull --ff-only</code></td></tr>
+<tr><td>Branch</td><td>Bottom-right branch widget</td><td><code>git switch</code></td></tr>
+<tr><td>History</td><td>Git tool window → Log</td><td><code>git log</code></td></tr>
+<tr><td>Conflicts</td><td>Git → Resolve Conflicts</td><td>Edit, add, commit</td></tr></table>
+<p>Use Android Studio's visual diffs, but learn the terminal vocabulary. The interface becomes predictable when you understand the underlying operation.</p>
+
+<h2>10. Practice exercise</h2>
+<p>Practice in a disposable repository named <code>git-practice</code>, not an important project.</p>
+<ol><li>Create the empty repository on GitHub.</li><li>Clone it.</li><li>Create a README with one sentence.</li><li>Inspect, stage, and commit it.</li><li>Push the default branch.</li><li>Create <code>feature/add-notes</code>.</li><li>Edit and commit the README.</li><li>Push the branch and open a pull request.</li><li>Merge it on GitHub.</li><li>Switch locally to the default branch and pull.</li></ol>
+<pre>git clone https://github.com/YOU/git-practice.git
+cd git-practice
+# create README.md, then:
+git status
+git add README.md
+git diff --staged
+git commit -m "Add project README"
+git push
+
+git switch -c feature/add-notes
+# edit README.md, then:
+git add README.md
+git commit -m "Add learning notes"
+git push -u origin feature/add-notes
+# merge the pull request on GitHub
+git switch main
+git pull --ff-only
+git log --oneline --graph --decorate --all</pre>
+
+<h2 class="break">11. Daily cheat sheet</h2>
+<h3>Inspect without changing anything</h3>
+<pre>git status
+git diff
+git diff --staged
+git branch --show-current
+git remote -v
+git log --oneline --graph --decorate --all -15</pre>
+<h3>Start, save, and publish a task</h3>
+<pre>git switch main
+git pull --ff-only origin main
+git switch -c feature/task-name
+# edit and test
+git status
+git add path/to/file
+git diff --staged
+git commit -m "Describe the result"
+git push -u origin feature/task-name</pre>
+<h3>Common errors</h3>
+<table><tr><th>Problem</th><th>Meaning / response</th></tr>
+<tr><td><code>not a git repository</code></td><td>You are in the wrong directory. Use <code>cd</code> to enter the project.</td></tr>
+<tr><td><code>nothing to commit</code></td><td>No changes are staged; inspect status and directory.</td></tr>
+<tr><td>Push rejected: non-fast-forward</td><td>Remote has newer commits. Fetch, inspect, integrate, test, and push. Do not jump to force push.</td></tr>
+<tr><td><code>origin already exists</code></td><td>Inspect <code>git remote -v</code>; change it only if wrong.</td></tr>
+<tr><td>Authentication failed</td><td>Check permission and sign in with browser/token/credential manager.</td></tr>
+<tr><td>Merge conflict</td><td>Inspect status, resolve each file, test, stage, and finish the merge.</td></tr></table>
+<h3>Before a commit</h3>
+<ol><li>Correct branch?</li><li>Project tested?</li><li>Only intentional files?</li><li>Reviewed <code>git diff --staged</code>?</li><li>No secrets or generated files?</li><li>Clear commit message?</li></ol>
+<h3>Before a pull</h3>
+<ol><li>Working tree clean?</li><li>Correct branch?</li><li>Unusual remote changes inspected?</li></ol>
+<h3>Before a push</h3>
+<ol><li>Commits tested?</li><li>Correct branch?</li><li>Correct remote and destination shown?</li></ol>
+<div class="good box"><strong>Final rule:</strong> make small commits, use feature branches, inspect before acting, and collaborate through pull requests. When uncertain, preserve the current state and investigate instead of guessing with destructive commands.</div>
+<p class="small">Official references: docs.github.com (cloning, remote changes, branches, pull requests, remotes); git-scm.com/docs; developer.android.com/studio/projects/version-control.</p>
+</body>
+</html>

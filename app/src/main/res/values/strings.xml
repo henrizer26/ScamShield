@@ -55,6 +55,7 @@
     <string name="analyze_read_sms">Read SMS Automatically</string>
     <string name="analyze_read_sms_sub">Requires permission</string>
     <string name="analyze_read_sms_on">Permission granted — incoming SMS is scanned</string>
+    <string name="analyze_read_sms_ready">Permission granted — enable protection in Settings</string>
     <string name="analyze_manual">Manual Input</string>
     <string name="analyze_manual_sub">Type or paste message manually</string>
     <string name="analyze_now">Analyze Now</string>
@@ -72,13 +73,18 @@
     <string name="hint_message">Enter the suspicious message</string>
 
     <!-- Scan result -->
+    <string name="result_class_safe">SAFE</string>
+    <string name="result_class_suspicious">SUSPICIOUS</string>
+    <string name="result_class_scam">SCAM</string>
     <string name="result_high_risk">HIGH RISK</string>
     <string name="result_medium_risk">MEDIUM RISK</string>
     <string name="result_low_risk">LOW RISK</string>
     <string name="result_safe">LOOKS SAFE</string>
     <string name="result_scam_subtitle">This message is likely a scam!</string>
+    <string name="result_suspicious_subtitle">This message contains suspicious indicators.</string>
     <string name="result_safe_subtitle">No scam indicators were detected.</string>
     <string name="result_no_indicators">No indicators were detected.</string>
+    <string name="result_score">Score: %1$d/100</string>
 
     <!-- Shared field labels -->
     <string name="label_scam_type">Scam Type</string>
@@ -169,6 +175,12 @@
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
+    <string name="protection_title">Real-time protection</string>
+    <string name="protection_active">Active — incoming SMS is monitored</string>
+    <string name="protection_inactive">Off — incoming SMS is not monitored</string>
+    <string name="protection_needs_permission">Off — SMS and notification permissions required</string>
+    <string name="protection_enabled_toast">Real-time protection enabled</string>
+    <string name="protection_permission_denied">Protection remains off because required permission was denied</string>
     <string name="settings_language">Language</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_notifications">Notifications</string>
@@ -194,7 +206,12 @@
     <string name="notif_channel_name">ScamShield Alerts</string>
     <string name="notif_channel_desc">Notifications for scam detection</string>
     <string name="notif_scam_title">Scam detected</string>
-    <string name="notif_scam_text">From: %1$s\nType: %2$s</string>
+    <string name="notif_suspicious_title">Suspicious SMS detected</string>
+    <string name="notif_risk_text">From: %1$s\nType: %2$s\nRisk score: %3$d/100</string>
+    <string name="protection_channel_name">ScamShield Protection</string>
+    <string name="protection_channel_desc">Shows when real-time SMS protection is active</string>
+    <string name="protection_notification_title">ScamShield protection is active</string>
+    <string name="protection_notification_text">Incoming SMS messages are checked locally</string>
 
     <!-- Content descriptions -->
     <string name="cd_app_logo">ScamShield logo</string>

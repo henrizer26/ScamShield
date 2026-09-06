@@ -127,6 +127,15 @@
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     tools:text="High Risk" />
+
+                <TextView
+                    android:id="@+id/tvRiskScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    tools:text="Score: 80/100" />
             </LinearLayout>
 
             <!-- Indicators -->

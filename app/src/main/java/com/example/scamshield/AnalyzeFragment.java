@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.example.scamshield.database.DatabaseHelper;
@@ -23,6 +21,7 @@ import com.example.scamshield.models.ScamModel;
 import com.example.scamshield.utils.AppPrefs;
 import com.example.scamshield.utils.Nav;
 import com.example.scamshield.utils.NotificationHelper;
+import com.example.scamshield.utils.ProtectionManager;
 import com.example.scamshield.utils.ScamDetector;
 import com.example.scamshield.utils.ScanArgs;
 import java.text.SimpleDateFormat;
@@ -171,23 +170,28 @@ public class AnalyzeFragment extends Fragment {
 
     private void requestSmsPermission() {
         if (hasSmsPermission()) {
-            toast(R.string.analyze_read_sms_on);
+            toast(ProtectionManager.isActive(requireContext())
+                    ? R.string.analyze_read_sms_on
+                    : R.string.analyze_read_sms_ready);
             return;
         }
         ActivityCompat.requestPermissions(requireActivity(),
-                new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS},
+                new String[]{Manifest.permission.RECEIVE_SMS},
                 SMS_PERMISSION_REQUEST);
     }
 
     private boolean hasSmsPermission() {
-        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECEIVE_SMS)
-                == PackageManager.PERMISSION_GRANTED;
+        return ProtectionManager.hasSmsPermission(requireContext());
     }
 
     private void updateSmsRowState() {
-        tvReadSmsSub.setText(hasSmsPermission()
-                ? R.string.analyze_read_sms_on
-                : R.string.analyze_read_sms_sub);
+        if (ProtectionManager.isActive(requireContext())) {
+            tvReadSmsSub.setText(R.string.analyze_read_sms_on);
+        } else if (hasSmsPermission()) {
+            tvReadSmsSub.setText(R.string.analyze_read_sms_ready);
+        } else {
+            tvReadSmsSub.setText(R.string.analyze_read_sms_sub);
+        }
     }
 
     private void updatePendingState() {
@@ -219,21 +223,20 @@ public class AnalyzeFragment extends Fragment {
         int id = -1;
         String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date());
 
-        if (result.isScam) {
+        if (result.shouldAlert()) {
             long rowId = dbHelper.addScam(phone, pendingMessage, result.scamType);
             if (rowId != -1) {
                 id = (int) rowId;
             }
-            NotificationHelper.createNotificationChannel(getActivity());
-            NotificationHelper.showScamAlert(getActivity(), phone, result.scamType);
+            NotificationHelper.showRiskAlert(getActivity(), phone, result);
         }
 
         ScamModel scam = new ScamModel(id, phone, pendingMessage,
-                result.isScam ? result.scamType : getString(R.string.result_safe),
+                result.shouldAlert() ? result.scamType : getString(R.string.result_safe),
                 dateTime, false);
 
         Bundle args = ScanArgs.of(scam, result.dangerLevel,
-                new ArrayList<>(result.indicators), result.isScam);
+                new ArrayList<>(result.indicators), result.classification, result.score);
 
         // The verdict replaces this screen, so Back returns to the tabs.
         pendingPhone = "";

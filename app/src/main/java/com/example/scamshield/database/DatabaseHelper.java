@@ -58,12 +58,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // 1. INSERT - Add new scam
     public long addScam(String phoneNumber, String message, String scamType) {
+        return addScam(phoneNumber, message, scamType, System.currentTimeMillis());
+    }
+
+    public long addScam(String phoneNumber, String message, String scamType,
+                        long timestampMillis) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_PHONE, phoneNumber);
         values.put(COLUMN_MESSAGE, message);
         values.put(COLUMN_SCAM_TYPE, scamType);
-        values.put(COLUMN_DATE_TIME, getCurrentDateTime());
+        values.put(COLUMN_DATE_TIME, formatDateTime(timestampMillis));
         values.put(COLUMN_IS_REPORTED, 0);
 
         long id = db.insert(TABLE_SCAMS, null, values);
@@ -175,8 +180,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Helper: Get current date time
-    private String getCurrentDateTime() {
+    private String formatDateTime(long timestampMillis) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        return sdf.format(new Date());
+        return sdf.format(new Date(timestampMillis));
     }
 }

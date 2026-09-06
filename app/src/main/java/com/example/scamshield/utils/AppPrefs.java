@@ -18,6 +18,7 @@ public final class AppPrefs {
 
     private static final String KEY_DARK_THEME = "darkTheme";
     private static final String KEY_SCANNED = "messagesScanned";
+    private static final String KEY_PROTECTION_ENABLED = "protectionEnabled";
 
     private AppPrefs() {
     }
@@ -54,11 +55,20 @@ public final class AppPrefs {
         prefs(context).edit().putInt(KEY_SCANNED, getScannedCount(context) + 1).apply();
     }
 
+    public static boolean isProtectionEnabled(Context context) {
+        return prefs(context).getBoolean(KEY_PROTECTION_ENABLED, false);
+    }
+
+    public static void setProtectionEnabled(Context context, boolean enabled) {
+        prefs(context).edit().putBoolean(KEY_PROTECTION_ENABLED, enabled).apply();
+    }
+
     /** Clears the local counters and sends the user back through onboarding. */
     public static void reset(Context context) {
         prefs(context).edit()
                 .putInt(KEY_SCANNED, 0)
                 .putBoolean(KEY_FIRST_LAUNCH, true)
+                .putBoolean(KEY_PROTECTION_ENABLED, false)
                 .apply();
     }
 

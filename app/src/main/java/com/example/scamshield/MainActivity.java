@@ -1,22 +1,18 @@
 package com.example.scamshield;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import com.example.scamshield.utils.NotificationHelper;
+import com.example.scamshield.utils.ProtectionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,8 +23,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * steps are full-screen pages with their own back arrow, as in the reference.
  */
 public class MainActivity extends AppCompatActivity {
-
-    private static final int PERMISSION_REQUEST_CODE = 100;
 
     private BottomNavigationView bottomNav;
     private FloatingActionButton fabScan;
@@ -41,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
         // Create notification channel
         NotificationHelper.createNotificationChannel(this);
 
-        // Request permissions
-        requestPermissions();
+        // Restore protection only when the user previously enabled it and the
+        // required Android permissions are still granted.
+        ProtectionManager.restore(this);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
@@ -127,28 +122,4 @@ public class MainActivity extends AppCompatActivity {
                 .build();
     }
 
-    private void requestPermissions() {
-        String[] permissions;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            permissions = new String[]{
-                    Manifest.permission.RECEIVE_SMS,
-                    Manifest.permission.READ_SMS,
-                    Manifest.permission.POST_NOTIFICATIONS
-            };
-        } else {
-            permissions = new String[]{
-                    Manifest.permission.RECEIVE_SMS,
-                    Manifest.permission.READ_SMS
-            };
-        }
-
-        for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_CODE);
-                break;
-            }
-        }
-    }
 }

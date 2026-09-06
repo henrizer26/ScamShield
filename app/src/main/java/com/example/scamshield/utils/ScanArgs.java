@@ -17,6 +17,8 @@ public final class ScanArgs {
     public static final String INDICATORS = "indicators";
     public static final String DANGER = "danger";
     public static final String IS_SCAM = "isScam";
+    public static final String CLASSIFICATION = "classification";
+    public static final String SCORE = "score";
     public static final String CHANNEL = "channel";
     public static final String NOTES = "notes";
 
@@ -24,11 +26,20 @@ public final class ScanArgs {
     }
 
     public static Bundle of(ScamModel scam, String danger, ArrayList<String> indicators, boolean isScam) {
+        return of(scam, danger, indicators,
+                isScam ? ScamDetector.SCAM : ScamDetector.SAFE,
+                isScam ? ScamDetector.SCAM_THRESHOLD : 0);
+    }
+
+    public static Bundle of(ScamModel scam, String danger, ArrayList<String> indicators,
+                            String classification, int score) {
         Bundle args = new Bundle();
         args.putSerializable(SCAM, scam);
         args.putString(DANGER, danger);
         args.putStringArrayList(INDICATORS, indicators);
-        args.putBoolean(IS_SCAM, isScam);
+        args.putBoolean(IS_SCAM, !ScamDetector.SAFE.equals(classification));
+        args.putString(CLASSIFICATION, classification);
+        args.putInt(SCORE, score);
         return args;
     }
 

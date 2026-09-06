@@ -54,6 +54,7 @@
     <string name="analyze_read_sms">Soma SMS Kiotomatiki</string>
     <string name="analyze_read_sms_sub">Inahitaji ruhusa</string>
     <string name="analyze_read_sms_on">Ruhusa imetolewa — SMS zinazoingia zinachanganuliwa</string>
+    <string name="analyze_read_sms_ready">Ruhusa imetolewa — washa ulinzi kwenye Mipangilio</string>
     <string name="analyze_manual">Kuandika Mwenyewe</string>
     <string name="analyze_manual_sub">Andika au bandika ujumbe mwenyewe</string>
     <string name="analyze_now">Changanua Sasa</string>
@@ -71,13 +72,18 @@
     <string name="hint_message">Weka ujumbe unaotiliwa shaka</string>
 
     <!-- Scan result -->
+    <string name="result_class_safe">SALAMA</string>
+    <string name="result_class_suspicious">INATIA SHAKA</string>
+    <string name="result_class_scam">ULAGHAI</string>
     <string name="result_high_risk">HATARI KUBWA</string>
     <string name="result_medium_risk">HATARI YA WASTANI</string>
     <string name="result_low_risk">HATARI NDOGO</string>
     <string name="result_safe">UNAONEKANA SALAMA</string>
     <string name="result_scam_subtitle">Ujumbe huu huenda ni ulaghai!</string>
+    <string name="result_suspicious_subtitle">Ujumbe huu una viashiria vya kutia shaka.</string>
     <string name="result_safe_subtitle">Hakuna viashiria vya ulaghai vilivyogunduliwa.</string>
     <string name="result_no_indicators">Hakuna viashiria vilivyogunduliwa.</string>
+    <string name="result_score">Alama: %1$d/100</string>
 
     <!-- Shared field labels -->
     <string name="label_scam_type">Aina ya Ulaghai</string>
@@ -166,6 +172,12 @@
 
     <!-- Settings -->
     <string name="settings_title">Mipangilio</string>
+    <string name="protection_title">Ulinzi wa wakati halisi</string>
+    <string name="protection_active">Umewashwa — SMS zinazoingia zinafuatiliwa</string>
+    <string name="protection_inactive">Umezimwa — SMS zinazoingia hazifuatiliwi</string>
+    <string name="protection_needs_permission">Umezimwa — ruhusa za SMS na arifa zinahitajika</string>
+    <string name="protection_enabled_toast">Ulinzi wa wakati halisi umewashwa</string>
+    <string name="protection_permission_denied">Ulinzi umebaki umezimwa kwa sababu ruhusa inayohitajika imekataliwa</string>
     <string name="settings_language">Lugha</string>
     <string name="settings_theme">Mandhari</string>
     <string name="settings_notifications">Arifa</string>
@@ -191,7 +203,12 @@
     <string name="notif_channel_name">Arifa za ScamShield</string>
     <string name="notif_channel_desc">Arifa za ugunduzi wa ulaghai</string>
     <string name="notif_scam_title">Ulaghai umegunduliwa</string>
-    <string name="notif_scam_text">Kutoka: %1$s\nAina: %2$s</string>
+    <string name="notif_suspicious_title">SMS ya kutia shaka imegunduliwa</string>
+    <string name="notif_risk_text">Kutoka: %1$s\nAina: %2$s\nAlama ya hatari: %3$d/100</string>
+    <string name="protection_channel_name">Ulinzi wa ScamShield</string>
+    <string name="protection_channel_desc">Huonyesha wakati ulinzi wa SMS wa wakati halisi umewashwa</string>
+    <string name="protection_notification_title">Ulinzi wa ScamShield umewashwa</string>
+    <string name="protection_notification_text">SMS zinazoingia zinakaguliwa kwenye kifaa</string>
 
     <!-- Content descriptions -->
     <string name="cd_app_logo">Nembo ya ScamShield</string>
