@@ -7,48 +7,48 @@
     <!-- Tabs -->
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.scamshield.HomeFragment"
+        android:name="com.group2.scamshield.HomeFragment"
         android:label="Home" />
 
     <fragment
         android:id="@+id/analyzeFragment"
-        android:name="com.example.scamshield.AnalyzeFragment"
+        android:name="com.group2.scamshield.AnalyzeFragment"
         android:label="Analyze" />
 
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.example.scamshield.HistoryFragment"
+        android:name="com.group2.scamshield.HistoryFragment"
         android:label="History" />
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.scamshield.ProfileFragment"
+        android:name="com.group2.scamshield.ProfileFragment"
         android:label="Profile" />
 
     <!-- Scan and report flow -->
     <fragment
         android:id="@+id/scanResultFragment"
-        android:name="com.example.scamshield.ScanResultFragment"
+        android:name="com.group2.scamshield.ScanResultFragment"
         android:label="Scan Result" />
 
     <fragment
         android:id="@+id/scamDetailsFragment"
-        android:name="com.example.scamshield.ScamDetailsFragment"
+        android:name="com.group2.scamshield.ScamDetailsFragment"
         android:label="Scam Details" />
 
     <fragment
         android:id="@+id/reportScamFragment"
-        android:name="com.example.scamshield.ReportScamFragment"
+        android:name="com.group2.scamshield.ReportScamFragment"
         android:label="Report Scam" />
 
     <fragment
         android:id="@+id/reviewReportFragment"
-        android:name="com.example.scamshield.ReviewReportFragment"
+        android:name="com.group2.scamshield.ReviewReportFragment"
         android:label="Review Report" />
 
     <fragment
         android:id="@+id/reportSentFragment"
-        android:name="com.example.scamshield.ReportSentFragment"
+        android:name="com.group2.scamshield.ReportSentFragment"
         android:label="Report Sent" />
 
 </navigation>

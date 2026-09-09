@@ -73,6 +73,7 @@
     <string name="hint_message">Enter the suspicious message</string>
 
     <!-- Scan result -->
+    <string name="result_title">Analysis Result</string>
     <string name="result_class_safe">SAFE</string>
     <string name="result_class_suspicious">SUSPICIOUS</string>
     <string name="result_class_scam">SCAM</string>

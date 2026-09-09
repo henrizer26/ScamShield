@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.scamshield'
+    namespace 'com.group2.scamshield'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.scamshield"
+        applicationId "com.group2.scamshield"
         minSdk 24
         targetSdk 34
         versionCode 1
