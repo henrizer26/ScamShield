@@ -14,12 +14,23 @@ public final class ProtectionManager {
     private ProtectionManager() {
     }
 
-    public static boolean hasSmsPermission(Context context) {
+    /** What to ask Android for before protection can be switched on. */
+    public static String[] requiredPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return new String[]{
+                    Manifest.permission.RECEIVE_SMS,
+                    Manifest.permission.POST_NOTIFICATIONS
+            };
+        }
+        return new String[]{Manifest.permission.RECEIVE_SMS};
+    }
+
+    private static boolean hasSmsPermission(Context context) {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS)
                 == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static boolean hasNotificationPermission(Context context) {
+    private static boolean hasNotificationPermission(Context context) {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
                 || ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
                 == PackageManager.PERMISSION_GRANTED;

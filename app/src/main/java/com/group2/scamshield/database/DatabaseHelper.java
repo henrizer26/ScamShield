@@ -6,11 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.group2.scamshield.models.ScamModel;
-import java.text.SimpleDateFormat;
+import com.group2.scamshield.utils.DateFormats;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -57,10 +55,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // ============ CRUD OPERATIONS ============
 
     // 1. INSERT - Add new scam
-    public long addScam(String phoneNumber, String message, String scamType) {
-        return addScam(phoneNumber, message, scamType, System.currentTimeMillis());
-    }
-
     public long addScam(String phoneNumber, String message, String scamType,
                         long timestampMillis) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -68,14 +62,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PHONE, phoneNumber);
         values.put(COLUMN_MESSAGE, message);
         values.put(COLUMN_SCAM_TYPE, scamType);
-        values.put(COLUMN_DATE_TIME, formatDateTime(timestampMillis));
+        values.put(COLUMN_DATE_TIME, DateFormats.stamp(timestampMillis));
         values.put(COLUMN_IS_REPORTED, 0);
 
-        long id = db.insert(TABLE_SCAMS, null, values);
-        return id;
+        return db.insert(TABLE_SCAMS, null, values);
     }
 
-    // 2. READ - Get all scams
+    // 2. READ - Get all scams, newest first
     public List<ScamModel> getAllScams() {
         List<ScamModel> scamList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -98,31 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return scamList;
     }
 
-    // 3. READ - Get scams by type
-    public List<ScamModel> getScamsByType(String scamType) {
-        List<ScamModel> scamList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_SCAMS, null, COLUMN_SCAM_TYPE + "=?",
-                new String[]{scamType}, null, null, COLUMN_ID + " DESC");
-
-        if (cursor.moveToFirst()) {
-            do {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
-                String phone = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE));
-                String message = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MESSAGE));
-                String type = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SCAM_TYPE));
-                String dateTime = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_TIME));
-                boolean isReported = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_REPORTED)) == 1;
-
-                scamList.add(new ScamModel(id, phone, message, type, dateTime, isReported));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return scamList;
-    }
-
-    // 4. UPDATE - Mark as reported
+    // 3. UPDATE - Mark as reported
     public boolean markAsReported(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -132,30 +101,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rows > 0;
     }
 
-    // 5. DELETE - Delete scam by ID
+    // 4. DELETE - Delete scam by ID
     public boolean deleteScam(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rows = db.delete(TABLE_SCAMS, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
         return rows > 0;
     }
 
-    // 6. DELETE - Delete all scams
+    // 5. DELETE - Delete all scams
     public void deleteAllScams() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SCAMS, null, null);
     }
 
-    // 7. COUNT - Get total scams
-    public int getTotalScams() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_SCAMS, null);
-        cursor.moveToFirst();
-        int count = cursor.getInt(0);
-        cursor.close();
-        return count;
-    }
-
-    // 8. COUNT - Get reported scams, for the dashboard "Reports Sent" tile
+    // 6. COUNT - Get reported scams, for the dashboard "Reports Sent" tile
     public int getReportedCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
@@ -164,24 +123,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = cursor.getInt(0);
         cursor.close();
         return count;
-    }
-
-    // 9. COUNT - Get today's scams
-    public int getTodayScams() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        Cursor cursor = db.rawQuery(
-                "SELECT COUNT(*) FROM " + TABLE_SCAMS + " WHERE " + COLUMN_DATE_TIME + " LIKE ?",
-                new String[]{todayDate + "%"});
-        cursor.moveToFirst();
-        int count = cursor.getInt(0);
-        cursor.close();
-        return count;
-    }
-
-    // Helper: Get current date time
-    private String formatDateTime(long timestampMillis) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        return sdf.format(new Date(timestampMillis));
     }
 }

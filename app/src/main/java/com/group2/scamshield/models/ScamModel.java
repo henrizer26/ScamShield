@@ -2,15 +2,15 @@ package com.group2.scamshield.models;
 
 import java.io.Serializable;
 
+/** One stored scam: a row of the {@code scams} table, passed between screens. */
 public class ScamModel implements Serializable {
-    private int id;
-    private String phoneNumber;
-    private String message;
-    private String scamType;
-    private String dateTime;
-    private boolean isReported;
+    private final int id;
+    private final String phoneNumber;
+    private final String message;
+    private final String scamType;
+    private final String dateTime;
+    private final boolean isReported;
 
-    // Constructor
     public ScamModel(int id, String phoneNumber, String message, String scamType, String dateTime, boolean isReported) {
         this.id = id;
         this.phoneNumber = phoneNumber;
@@ -20,19 +20,10 @@ public class ScamModel implements Serializable {
         this.isReported = isReported;
     }
 
-    // Getters
     public int getId() { return id; }
     public String getPhoneNumber() { return phoneNumber; }
     public String getMessage() { return message; }
     public String getScamType() { return scamType; }
     public String getDateTime() { return dateTime; }
     public boolean isReported() { return isReported; }
-
-    // Setters
-    public void setId(int id) { this.id = id; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-    public void setMessage(String message) { this.message = message; }
-    public void setScamType(String scamType) { this.scamType = scamType; }
-    public void setDateTime(String dateTime) { this.dateTime = dateTime; }
-    public void setReported(boolean reported) { isReported = reported; }
 }

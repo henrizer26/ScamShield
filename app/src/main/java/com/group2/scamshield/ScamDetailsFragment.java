@@ -1,9 +1,9 @@
 package com.group2.scamshield;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.os.Build;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
 import android.view.LayoutInflater;
@@ -31,10 +31,7 @@ public class ScamDetailsFragment extends Fragment {
 
         final Bundle args = getArguments();
         final ScamModel scam = ScanArgs.scam(args);
-        String risk = RiskUi.bucket(scam == null ? null : scam.getScamType());
-        if (args != null && args.getString(ScanArgs.DANGER) != null) {
-            risk = RiskUi.bucket(args.getString(ScanArgs.DANGER));
-        }
+        String risk = ScanArgs.risk(args);
 
         int riskColor = ContextCompat.getColor(requireContext(), RiskUi.color(risk));
 
@@ -118,13 +115,11 @@ public class ScamDetailsFragment extends Fragment {
 
     private void openBlockedNumbers() {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                TelecomManager telecom =
-                        (TelecomManager) requireContext().getSystemService(android.content.Context.TELECOM_SERVICE);
-                if (telecom != null) {
-                    startActivity(telecom.createManageBlockedNumbersIntent());
-                    return;
-                }
+            TelecomManager telecom =
+                    (TelecomManager) requireContext().getSystemService(Context.TELECOM_SERVICE);
+            if (telecom != null) {
+                startActivity(telecom.createManageBlockedNumbersIntent());
+                return;
             }
             Toast.makeText(getActivity(), R.string.toast_no_block_screen, Toast.LENGTH_SHORT).show();
         } catch (ActivityNotFoundException | SecurityException e) {

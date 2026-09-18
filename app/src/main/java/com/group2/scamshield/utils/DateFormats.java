@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Turns the stored {@code yyyy-MM-dd HH:mm:ss} stamp into the wording the
- * reference uses: "Today / Yesterday / 25 Aug 2026" beside a clock time.
+ * Writes the stored {@code yyyy-MM-dd HH:mm:ss} stamp and turns it into the
+ * wording the reference uses: "Today / Yesterday / 25 Aug 2026" beside a clock time.
  */
 public final class DateFormats {
 
@@ -23,7 +23,12 @@ public final class DateFormats {
         return new SimpleDateFormat(STORED_PATTERN, Locale.US);
     }
 
-    public static Date parse(String stored) {
+    /** The value kept in the database for a moment in time. */
+    public static String stamp(long timestampMillis) {
+        return stored().format(new Date(timestampMillis));
+    }
+
+    private static Date parse(String stored) {
         if (stored == null) {
             return null;
         }

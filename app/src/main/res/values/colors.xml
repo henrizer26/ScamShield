@@ -23,9 +23,7 @@
     <color name="risk_low_bg">#E9FAEE</color>
 
     <!-- Status -->
-    <color name="accent">#E53935</color>
     <color name="accent_warning">#F59E0B</color>
-    <color name="accent_success">#22A94A</color>
     <color name="success_strong">#34A853</color>
     <color name="info_blue">#4FA8F5</color>
 
@@ -34,8 +32,6 @@
     <color name="bg_card">#FFFFFF</color>
     <color name="bg_muted">#EFEEF4</color>
     <color name="divider">#ECECF3</color>
-    <color name="glass">#FFFFFF</color>
-    <color name="glass_border">#ECECF3</color>
 
     <!-- Result screen (scan verdict) -->
     <color name="result_bg_top">#FFF3F1</color>

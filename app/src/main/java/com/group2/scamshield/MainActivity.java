@@ -4,20 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
-import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import com.group2.scamshield.utils.Nav;
 import com.group2.scamshield.utils.NotificationHelper;
 import com.group2.scamshield.utils.ProtectionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
- * Hosts the four tabs and the floating scan button.
+ * Hosts the four tabs.
  *
  * <p>The bar is only part of Home, History and Profile: the scan and report
  * steps are full-screen pages with their own back arrow, as in the reference.
@@ -25,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
-    private FloatingActionButton fabScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,25 +40,12 @@ public class MainActivity extends AppCompatActivity {
         final NavController navController = navHostFragment.getNavController();
 
         bottomNav = findViewById(R.id.bottom_nav);
-        fabScan = findViewById(R.id.fabScan);
         NavigationUI.setupWithNavController(bottomNav, navController);
 
-        fabScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.analyzeFragment, null, tabNavOptions());
-            }
-        });
-
-        navController.addOnDestinationChangedListener(
-                new NavController.OnDestinationChangedListener() {
-                    @Override
-                    public void onDestinationChanged(@NonNull NavController controller,
-                                                     @NonNull NavDestination destination,
-                                                     Bundle arguments) {
-                        setChromeVisible(isTabDestination(destination.getId()));
-                    }
-                });
+        navController.addOnDestinationChangedListener((controller, destination, arguments) ->
+                bottomNav.setVisibility(isTabDestination(destination.getId())
+                        ? View.VISIBLE
+                        : View.GONE));
 
         routeSharedText(navController, getIntent());
     }
@@ -80,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * "Share Message" on the Analyze screen is the system share sheet: an SMS
-     * shared from Messages lands here and is carried to the scan screen.
+     * An SMS shared from Messages through the system share sheet lands here and
+     * is carried to the scan screen, already filled in.
      */
     private void routeSharedText(NavController navController, Intent intent) {
         if (intent == null || !Intent.ACTION_SEND.equals(intent.getAction())) {
@@ -95,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle args = new Bundle();
         args.putString(AnalyzeFragment.ARG_SHARED_TEXT, shared);
-        navController.navigate(R.id.analyzeFragment, args, tabNavOptions());
+        navController.navigate(R.id.analyzeFragment, args, Nav.tabs());
 
         // Consumed: a configuration change must not re-open the same message.
         intent.removeExtra(Intent.EXTRA_TEXT);
@@ -107,19 +90,4 @@ public class MainActivity extends AppCompatActivity {
                 || destinationId == R.id.historyFragment
                 || destinationId == R.id.profileFragment;
     }
-
-    private void setChromeVisible(boolean visible) {
-        int visibility = visible ? View.VISIBLE : View.GONE;
-        bottomNav.setVisibility(visibility);
-        fabScan.setVisibility(visibility);
-    }
-
-    /** Tab-style navigation: one entry per tab, never a growing back stack. */
-    private NavOptions tabNavOptions() {
-        return new NavOptions.Builder()
-                .setLaunchSingleTop(true)
-                .setPopUpTo(R.id.homeFragment, false)
-                .build();
-    }
-
 }

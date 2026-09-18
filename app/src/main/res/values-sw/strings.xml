@@ -44,34 +44,15 @@
 
     <!-- Analyze -->
     <string name="analyze_title">Changanua Ujumbe</string>
-    <string name="analyze_subtitle">Chagua namna ya kuweka ujumbe</string>
-    <string name="analyze_paste">Bandika Ujumbe</string>
-    <string name="analyze_paste_sub">Bandika au andika ujumbe hapa</string>
-    <string name="analyze_share">Shiriki Ujumbe</string>
-    <string name="analyze_share_sub">Shiriki kutoka Messages au programu nyingine</string>
-    <string name="analyze_screenshot">Picha ya Skrini (OCR)</string>
-    <string name="analyze_screenshot_sub">Toa maandishi kwenye picha ya skrini</string>
-    <string name="analyze_read_sms">Soma SMS Kiotomatiki</string>
-    <string name="analyze_read_sms_sub">Inahitaji ruhusa</string>
-    <string name="analyze_read_sms_on">Ruhusa imetolewa — SMS zinazoingia zinachanganuliwa</string>
-    <string name="analyze_read_sms_ready">Ruhusa imetolewa — washa ulinzi kwenye Mipangilio</string>
-    <string name="analyze_manual">Kuandika Mwenyewe</string>
-    <string name="analyze_manual_sub">Andika au bandika ujumbe mwenyewe</string>
+    <string name="analyze_subtitle">Bandika au andika ujumbe ili kuukagua</string>
+    <string name="analyze_sender_label">Mtumaji (si lazima)</string>
     <string name="analyze_now">Changanua Sasa</string>
-    <string name="analyze_ready">Tayari kuchanganua:\nKutoka %1$s\n%2$s</string>
     <string name="analyze_needs_message">Weka ujumbe kwanza</string>
-    <string name="analyze_clipboard_empty">Ubao wa kunakili hauna kitu</string>
-    <string name="analyze_clipboard_pasted">Ujumbe umebandikwa kutoka ubao wa kunakili</string>
-    <string name="analyze_ocr_unavailable">Kusoma picha ya skrini hakupatikani kwenye kifaa hiki</string>
-    <string name="analyze_share_hint">Fungua Messages, gusa Shiriki kwenye SMS, kisha chagua ScamShield</string>
-    <string name="dialog_add_message">Weka ujumbe</string>
-    <string name="action_add">Weka</string>
-    <string name="error_phone_required">Namba ya simu inahitajika</string>
-    <string name="error_message_required">Ujumbe unahitajika</string>
     <string name="hint_phone">Weka namba ya simu</string>
-    <string name="hint_message">Weka ujumbe unaotiliwa shaka</string>
+    <string name="hint_message">Bandika au andika ujumbe unaotiliwa shaka</string>
 
     <!-- Scan result -->
+    <string name="result_title">Matokeo ya Uchambuzi</string>
     <string name="result_class_safe">SALAMA</string>
     <string name="result_class_suspicious">INATIA SHAKA</string>
     <string name="result_class_scam">ULAGHAI</string>
@@ -139,7 +120,6 @@
     <string name="history_empty">Hakuna historia ya ulaghai bado\nAnza kuripoti ulaghai!</string>
     <string name="history_empty_filter">Hakuna kitu katika kiwango hiki cha hatari</string>
     <string name="filter_all">Zote</string>
-    <string name="filter_dialog_title">Chuja kwa hatari</string>
     <string name="date_today">Leo</string>
     <string name="date_yesterday">Jana</string>
     <string name="dialog_scam_options">Chaguo za Ulaghai</string>
@@ -159,7 +139,6 @@
     <string name="toast_details_copied">Maelezo yamenakiliwa</string>
     <string name="toast_no_sms_app">Programu ya SMS haipatikani</string>
     <string name="toast_no_dialer_app">Programu ya kupiga simu haipatikani</string>
-    <string name="toast_scam_saved">Ulaghai umehifadhiwa kwenye historia</string>
     <string name="clipboard_label">Maelezo ya Ulaghai</string>
     <string name="copy_phone">Simu: %1$s</string>
     <string name="copy_type">Aina: %1$s</string>
@@ -191,7 +170,6 @@
     <string name="language_swahili">Kiswahili</string>
     <string name="theme_dark">Giza</string>
     <string name="theme_light">Mwanga</string>
-    <string name="settings_version">ScamShield v1.0</string>
     <string name="about_message">ScamShield hukagua SMS kwa maneno na namba zinazojulikana za ulaghai, huweka historia kwenye simu yako na kukusaidia kuripoti TCRA (15040).\n\nToleo 1.0</string>
     <string name="privacy_message">Ujumbe hukaguliwa kwenye simu hii pekee. Hakuna kinachopakiwa mtandaoni: historia iko kwenye hifadhidata ya ndani na hufutwa unapoifuta.</string>
     <string name="help_message">Weka ujumbe kwenye kichupo cha Changanua ili kuukagua. Ulaghai ukigunduliwa, tumia Ripoti Ulaghai kutuma kwa TCRA (15040) au mtandao wako.\n\nNamba ya msaada ya TCRA: 15040</string>
@@ -215,5 +193,4 @@
     <string name="cd_back">Rudi</string>
     <string name="cd_share">Shiriki</string>
     <string name="cd_filter">Chuja</string>
-    <string name="cd_open">Fungua</string>
 </resources>

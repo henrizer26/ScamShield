@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">ScamShield</string>
-    <string name="empty" translatable="false"> </string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Home</string>
@@ -45,32 +44,12 @@
 
     <!-- Analyze -->
     <string name="analyze_title">Analyze Message</string>
-    <string name="analyze_subtitle">Choose how you want to add a message</string>
-    <string name="analyze_paste">Paste Message</string>
-    <string name="analyze_paste_sub">Paste or type the message here</string>
-    <string name="analyze_share">Share Message</string>
-    <string name="analyze_share_sub">Share from Messages or other apps</string>
-    <string name="analyze_screenshot">Screenshot (OCR)</string>
-    <string name="analyze_screenshot_sub">Extract text from screenshot</string>
-    <string name="analyze_read_sms">Read SMS Automatically</string>
-    <string name="analyze_read_sms_sub">Requires permission</string>
-    <string name="analyze_read_sms_on">Permission granted — incoming SMS is scanned</string>
-    <string name="analyze_read_sms_ready">Permission granted — enable protection in Settings</string>
-    <string name="analyze_manual">Manual Input</string>
-    <string name="analyze_manual_sub">Type or paste message manually</string>
+    <string name="analyze_subtitle">Paste or type a message to check it</string>
+    <string name="analyze_sender_label">Sender (optional)</string>
     <string name="analyze_now">Analyze Now</string>
-    <string name="analyze_ready">Ready to analyze:\nFrom %1$s\n%2$s</string>
     <string name="analyze_needs_message">Add a message first</string>
-    <string name="analyze_clipboard_empty">The clipboard is empty</string>
-    <string name="analyze_clipboard_pasted">Message pasted from the clipboard</string>
-    <string name="analyze_ocr_unavailable">Screenshot reading is not available on this device</string>
-    <string name="analyze_share_hint">Open Messages, tap Share on the SMS, then pick ScamShield</string>
-    <string name="dialog_add_message">Add message</string>
-    <string name="action_add">Add</string>
-    <string name="error_phone_required">Phone number is required</string>
-    <string name="error_message_required">Message is required</string>
     <string name="hint_phone">Enter phone number</string>
-    <string name="hint_message">Enter the suspicious message</string>
+    <string name="hint_message">Paste or type the suspicious message</string>
 
     <!-- Scan result -->
     <string name="result_title">Analysis Result</string>
@@ -143,7 +122,6 @@
     <string name="history_empty">No scam history yet\nStart reporting scams!</string>
     <string name="history_empty_filter">Nothing at this risk level</string>
     <string name="filter_all">All</string>
-    <string name="filter_dialog_title">Filter by risk</string>
     <string name="date_today">Today</string>
     <string name="date_yesterday">Yesterday</string>
     <string name="dialog_scam_options">Scam Options</string>
@@ -163,7 +141,6 @@
     <string name="toast_details_copied">Details copied to clipboard</string>
     <string name="toast_no_sms_app">SMS app not found</string>
     <string name="toast_no_dialer_app">No dialer app found</string>
-    <string name="toast_scam_saved">Scam saved to history</string>
     <string name="clipboard_label">Scam Details</string>
     <string name="copy_phone">Phone: %1$s</string>
     <string name="copy_type">Type: %1$s</string>
@@ -195,7 +172,6 @@
     <string name="language_swahili">Kiswahili</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_light">Light</string>
-    <string name="settings_version">ScamShield v1.0</string>
     <string name="about_message">ScamShield checks SMS for known scam wording and numbers, keeps a local history and helps you report to TCRA (15040).\n\nVersion 1.0</string>
     <string name="privacy_message">Messages are checked on this phone only. Nothing is uploaded: the history lives in a local database and is cleared when you delete it.</string>
     <string name="help_message">Add a message on the Scan tab to check it. When a scam is found, use Report Scam to send it to TCRA (15040) or your operator.\n\nTCRA helpline: 15040</string>
@@ -219,5 +195,4 @@
     <string name="cd_back">Back</string>
     <string name="cd_share">Share</string>
     <string name="cd_filter">Filter</string>
-    <string name="cd_open">Open</string>
 </resources>

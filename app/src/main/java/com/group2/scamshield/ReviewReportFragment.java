@@ -24,8 +24,6 @@ import com.group2.scamshield.utils.ScanArgs;
 /** Last look before the report leaves the phone. */
 public class ReviewReportFragment extends Fragment {
 
-    private static final String TCRA_SHORTCODE = "15040";
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_review_report, container, false);
@@ -37,10 +35,7 @@ public class ReviewReportFragment extends Fragment {
                 : args.getString(ScanArgs.CHANNEL, ReportScamFragment.CHANNEL_TCRA);
         final String notes = args == null ? "" : args.getString(ScanArgs.NOTES, "");
 
-        String risk = RiskUi.bucket(args == null ? null : args.getString(ScanArgs.DANGER));
-        if (args == null || args.getString(ScanArgs.DANGER) == null) {
-            risk = RiskUi.bucket(scam == null ? null : scam.getScamType());
-        }
+        String risk = ScanArgs.risk(args);
         int riskColor = ContextCompat.getColor(requireContext(), RiskUi.color(risk));
 
         ((TextView) view.findViewById(R.id.tvScamType))
@@ -92,7 +87,7 @@ public class ReviewReportFragment extends Fragment {
 
         boolean launched;
         if (ReportScamFragment.CHANNEL_TCRA.equals(channel)) {
-            Intent sms = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + TCRA_SHORTCODE))
+            Intent sms = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + ReportScamFragment.TCRA_SHORTCODE))
                     .putExtra("sms_body", body);
             launched = start(sms);
         } else {

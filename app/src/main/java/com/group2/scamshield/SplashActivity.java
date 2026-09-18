@@ -2,7 +2,6 @@ package com.group2.scamshield;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -33,11 +32,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences prefs =
-                        getSharedPreferences(AppPrefs.PREFS_NAME, MODE_PRIVATE);
-                boolean isFirstLaunch = prefs.getBoolean(AppPrefs.KEY_FIRST_LAUNCH, true);
-
-                Intent intent = isFirstLaunch
+                Intent intent = AppPrefs.isFirstLaunch(SplashActivity.this)
                         ? new Intent(SplashActivity.this, OnboardingActivity.class)
                         : new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);

@@ -319,7 +319,6 @@ public final class ScamDetector {
         DetectionRule.Input input = new DetectionRule.Input(
                 message == null ? "" : message,
                 normalizedMessage, canonicalMessage, normalizedSender);
-        List<String> tokens = tokenize(normalizedMessage);
 
         int strongScore = 0;
         int weakScore = 0;
@@ -386,7 +385,7 @@ public final class ScamDetector {
         }
 
         return new ScamResult(classification, score, displayType, dangerLevel,
-                indicators, matchedIds, normalizedMessage, canonicalMessage, tokens);
+                indicators, matchedIds, canonicalMessage);
     }
 
     /**
@@ -563,7 +562,7 @@ public final class ScamDetector {
      * the fold first. The join happens while the original spacing is still intact,
      * so "t u m a  p e s a" rejoins as two words rather than one.
      */
-    public static String canonicalize(String text) {
+    private static String canonicalize(String text) {
         if (text == null || text.isEmpty()) {
             return "";
         }
@@ -606,21 +605,6 @@ public final class ScamDetector {
         }
     }
 
-    /** Token view retained in the result for token-aware rules and testing. */
-    public static List<String> tokenize(String normalizedMessage) {
-        if (normalizedMessage == null || normalizedMessage.isEmpty()) {
-            return Collections.emptyList();
-        }
-        String tokenText = normalizedMessage.replaceAll("[^\\p{L}\\p{N}+]+", " ").trim();
-        if (tokenText.isEmpty()) {
-            return Collections.emptyList();
-        }
-        String[] values = tokenText.split("\\s+");
-        List<String> tokens = new ArrayList<>(values.length);
-        Collections.addAll(tokens, values);
-        return Collections.unmodifiableList(tokens);
-    }
-
     /** Risk bucket for current stored history rows. */
     public static String riskLevelFor(String scamType) {
         if (scamType == null) {
@@ -643,7 +627,6 @@ public final class ScamDetector {
     }
 
     public static final class ScamResult {
-        public final boolean isScam;
         public final String classification;
         public final int score;
         public final String scamType;
@@ -662,24 +645,20 @@ public final class ScamDetector {
          * costs the ability to say which rule was responsible.
          */
         public final List<String> matchedRules;
-        public final String normalizedMessage;
+
+        /** The de-obfuscated text the wording rules read, e.g. "p.1.n" as "pin". */
         public final String canonicalMessage;
-        public final List<String> tokens;
 
         private ScamResult(String classification, int score, String scamType,
                            String dangerLevel, List<String> indicators,
-                           List<String> matchedRules, String normalizedMessage,
-                           String canonicalMessage, List<String> tokens) {
+                           List<String> matchedRules, String canonicalMessage) {
             this.classification = classification;
             this.score = score;
-            this.isScam = SCAM.equals(classification);
             this.scamType = scamType;
             this.dangerLevel = dangerLevel;
             this.indicators = Collections.unmodifiableList(new ArrayList<>(indicators));
             this.matchedRules = Collections.unmodifiableList(new ArrayList<>(matchedRules));
-            this.normalizedMessage = normalizedMessage;
             this.canonicalMessage = canonicalMessage;
-            this.tokens = tokens;
         }
 
         public boolean shouldAlert() {

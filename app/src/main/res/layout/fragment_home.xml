@@ -44,13 +44,6 @@
                         android:textSize="26sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="8dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/waving_hand_24"
-                        app:tint="@color/accent_warning" />
                 </LinearLayout>
 
                 <TextView

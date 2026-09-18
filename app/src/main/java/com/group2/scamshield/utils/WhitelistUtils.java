@@ -1,71 +1,9 @@
 package com.group2.scamshield.utils;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
-public class WhitelistUtils {
-
-    // Known service provider numbers (NOT scams)
-    private static final Set<String> WHITELIST_NUMBERS = new HashSet<>(Arrays.asList(
-            // Vodacom
-            "15001", "15002", "15003", "15004", "15005",
-            "15010", "15011", "15012", "15013", "15014",
-            "15100", "15101", "15102", "15103", "15104",
-
-            // Tigo
-            "15030", "15031", "15032", "15033", "15034",
-            "15035", "15036", "15037", "15038", "15039",
-
-            // Airtel
-            "15060", "15061", "15062", "15063", "15064",
-            "15065", "15066", "15067", "15068", "15069",
-
-            // Halotel
-            "15090", "15091", "15092", "15093", "15094",
-
-            // TCRA
-            "15040",
-
-            // Other known service numbers
-            "100", "101", "102", "103", "104", "105", "106",
-            "111", "112", "113", "114", "115", "116", "117",
-            "118", "119", "120", "121", "122", "123", "124",
-            "125", "126", "127", "128", "129", "130",
-
-            // Bank shortcodes
-            "15300", "15301", "15302", "15303", "15304",
-            "15305", "15306", "15307", "15308", "15309",
-            "15310", "15311", "15312", "15313", "15314"
-    ));
-
-    // Known prefixes (e.g., Vodacom, Tigo, Airtel)
-    private static final Set<String> WHITELIST_PREFIXES = new HashSet<>(Arrays.asList(
-            "255", // Tanzania country code
-            "+255"
-    ));
-
-    public static boolean isWhitelisted(String phoneNumber) {
-        if (phoneNumber == null || phoneNumber.isEmpty()) {
-            return false;
-        }
-
-        // Remove spaces and special characters
-        String cleaned = phoneNumber.replaceAll("[^0-9+]", "");
-
-        // Check exact match
-        if (WHITELIST_NUMBERS.contains(cleaned)) {
-            return true;
-        }
-
-        // Check if it's a short code (3-5 digits)
-        if (cleaned.matches("^[0-9]{3,5}$")) {
-            return true; // Most short codes are service numbers
-        }
-
-        return false;
-    }
+/** Decides which incoming SMS are operator or bank traffic and skip the detector. */
+public final class WhitelistUtils {
 
     // Wording typical of operator/bank service traffic.
     private static final String[] SERVICE_KEYWORDS = {
@@ -75,9 +13,11 @@ public class WhitelistUtils {
             "mmt", "maboresho", "server", "network"
     };
 
+    private WhitelistUtils() {
+    }
+
     public static boolean isServiceMessage(String sender, String message) {
-        // Check if sender is whitelisted
-        if (isWhitelisted(sender)) {
+        if (isShortCode(sender)) {
             return true;
         }
 
@@ -97,6 +37,19 @@ public class WhitelistUtils {
         }
 
         return false;
+    }
+
+    /**
+     * True for a 3-5 digit short code such as TCRA's 15040. Operators, banks and
+     * authorities send from these; a subscriber's phone cannot.
+     */
+    private static boolean isShortCode(String sender) {
+        if (sender == null || sender.isEmpty()) {
+            return false;
+        }
+        // Remove spaces and special characters
+        String cleaned = sender.replaceAll("[^0-9+]", "");
+        return cleaned.matches("^[0-9]{3,5}$");
     }
 
     /**

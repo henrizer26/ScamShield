@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Four tabs plus a disabled spacer, so the floating scan button in
-  activity_main.xml sits in a real gap rather than on top of a tab.
--->
+<!-- The four tabs. Each id matches its destination in nav_graph.xml. -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
@@ -12,10 +9,6 @@
         android:id="@+id/analyzeFragment"
         android:icon="@drawable/scan_24"
         android:title="@string/nav_scan" />
-    <item
-        android:id="@+id/navSpacer"
-        android:enabled="false"
-        android:title="@string/empty" />
     <item
         android:id="@+id/historyFragment"
         android:icon="@drawable/history_filled_24"

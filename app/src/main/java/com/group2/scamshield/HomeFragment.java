@@ -1,9 +1,6 @@
 package com.group2.scamshield;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +12,7 @@ import com.group2.scamshield.database.DatabaseHelper;
 import com.group2.scamshield.models.ScamModel;
 import com.group2.scamshield.utils.AppPrefs;
 import com.group2.scamshield.utils.Nav;
+import com.group2.scamshield.utils.NotificationHelper;
 import com.group2.scamshield.utils.RiskUi;
 import com.group2.scamshield.utils.ScamDetector;
 import com.group2.scamshield.utils.ScanArgs;
@@ -60,7 +58,7 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.ivNotifications).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openNotificationSettings();
+                NotificationHelper.openSettings(requireContext());
             }
         });
 
@@ -126,18 +124,5 @@ public class HomeFragment extends Fragment {
     private void openDetails(ScamModel scam) {
         Navigation.findNavController(requireView())
                 .navigate(R.id.scamDetailsFragment, ScanArgs.ofStored(scam));
-    }
-
-    /** The bell opens this app's notification settings rather than a stub screen. */
-    private void openNotificationSettings() {
-        Intent intent;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                    .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().getPackageName());
-        } else {
-            intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                    .setData(android.net.Uri.parse("package:" + requireContext().getPackageName()));
-        }
-        startActivity(intent);
     }
 }

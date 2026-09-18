@@ -24,6 +24,9 @@ public class ReportScamFragment extends Fragment {
     public static final String CHANNEL_TCRA = "tcra";
     public static final String CHANNEL_OPERATOR = "operator";
 
+    /** TCRA's scam-reporting SMS shortcode. */
+    public static final String TCRA_SHORTCODE = "15040";
+
     private RadioButton radioTcraLeft, radioTcraRight, radioOperatorLeft, radioOperatorRight;
     private String channel = CHANNEL_TCRA;
 
@@ -33,10 +36,7 @@ public class ReportScamFragment extends Fragment {
 
         final Bundle args = getArguments();
         ScamModel scam = ScanArgs.scam(args);
-        String risk = RiskUi.bucket(args == null ? null : args.getString(ScanArgs.DANGER));
-        if (args == null || args.getString(ScanArgs.DANGER) == null) {
-            risk = RiskUi.bucket(scam == null ? null : scam.getScamType());
-        }
+        String risk = ScanArgs.risk(args);
 
         int riskColor = ContextCompat.getColor(requireContext(), RiskUi.color(risk));
         int riskBg = ContextCompat.getColor(requireContext(), RiskUi.background(risk));

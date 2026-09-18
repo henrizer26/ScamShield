@@ -238,12 +238,11 @@ public class HistoryFragment extends Fragment {
     }
 
     private void reportToTCRA(ScamModel scam) {
-        // Report to TCRA (15040)
         String message = getString(R.string.tcra_report_body,
                 scam.getPhoneNumber(), scam.getScamType());
 
         Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
-        smsIntent.setData(Uri.parse("smsto:15040"));
+        smsIntent.setData(Uri.parse("smsto:" + ReportScamFragment.TCRA_SHORTCODE));
         smsIntent.putExtra("sms_body", message);
 
         try {

@@ -1,18 +1,21 @@
 package com.group2.scamshield;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 import com.group2.scamshield.utils.AppPrefs;
+import com.group2.scamshield.utils.ProtectionManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 /** The three intro pages from the reference: artwork, headline, description. */
 public class OnboardingActivity extends AppCompatActivity {
+
+    private static final int PERMISSION_REQUEST = 101;
 
     private ViewPager2 viewPager;
     private MaterialButton btnNext;
@@ -26,6 +29,13 @@ public class OnboardingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.onboarding_activity);
+
+        // Ask while the intro explains why, so protection can start as soon as
+        // the user finishes it. Not again after a rotation.
+        if (savedInstanceState == null && !ProtectionManager.hasRequiredPermissions(this)) {
+            ActivityCompat.requestPermissions(this,
+                    ProtectionManager.requiredPermissions(), PERMISSION_REQUEST);
+        }
 
         titles = new int[]{R.string.onb1_title, R.string.onb2_title, R.string.onb3_title};
         // Only the first page splits its headline onto a coloured second line.
@@ -73,8 +83,12 @@ public class OnboardingActivity extends AppCompatActivity {
     }
 
     private void finishOnboarding() {
-        SharedPreferences prefs = getSharedPreferences(AppPrefs.PREFS_NAME, MODE_PRIVATE);
-        prefs.edit().putBoolean(AppPrefs.KEY_FIRST_LAUNCH, false).apply();
+        AppPrefs.setOnboardingDone(this);
+
+        // Granted during the intro: start real-time protection straight away.
+        if (ProtectionManager.hasRequiredPermissions(this)) {
+            ProtectionManager.enable(this);
+        }
 
         startActivity(new Intent(OnboardingActivity.this, MainActivity.class));
         finish();

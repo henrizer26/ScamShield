@@ -130,8 +130,4 @@ public final class DetectionRule {
     public String getCategory() {
         return category;
     }
-
-    public Field getField() {
-        return field;
-    }
 }

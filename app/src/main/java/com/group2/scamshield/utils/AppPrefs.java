@@ -13,9 +13,8 @@ import androidx.appcompat.app.AppCompatDelegate;
  */
 public final class AppPrefs {
 
-    public static final String PREFS_NAME = "ScamShieldPrefs";
-    public static final String KEY_FIRST_LAUNCH = "firstLaunch";
-
+    private static final String PREFS_NAME = "ScamShieldPrefs";
+    private static final String KEY_FIRST_LAUNCH = "firstLaunch";
     private static final String KEY_DARK_THEME = "darkTheme";
     private static final String KEY_SCANNED = "messagesScanned";
     private static final String KEY_PROTECTION_ENABLED = "protectionEnabled";
@@ -26,6 +25,15 @@ public final class AppPrefs {
     private static SharedPreferences prefs(Context context) {
         return context.getApplicationContext()
                 .getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    }
+
+    /** True until the intro has been finished or skipped once. */
+    public static boolean isFirstLaunch(Context context) {
+        return prefs(context).getBoolean(KEY_FIRST_LAUNCH, true);
+    }
+
+    public static void setOnboardingDone(Context context) {
+        prefs(context).edit().putBoolean(KEY_FIRST_LAUNCH, false).apply();
     }
 
     /** The reference design is the light one, so that is the default. */

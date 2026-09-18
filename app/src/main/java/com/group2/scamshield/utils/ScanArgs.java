@@ -16,7 +16,6 @@ public final class ScanArgs {
     public static final String SCAM = "scam";
     public static final String INDICATORS = "indicators";
     public static final String DANGER = "danger";
-    public static final String IS_SCAM = "isScam";
     public static final String CLASSIFICATION = "classification";
     public static final String SCORE = "score";
     public static final String CHANNEL = "channel";
@@ -54,7 +53,6 @@ public final class ScanArgs {
         args.putSerializable(SCAM, scam);
         args.putString(DANGER, danger);
         args.putStringArrayList(INDICATORS, indicators);
-        args.putBoolean(IS_SCAM, !ScamDetector.SAFE.equals(classification));
         args.putString(CLASSIFICATION, classification);
         args.putInt(SCORE, score);
         return args;
@@ -74,6 +72,19 @@ public final class ScanArgs {
         }
         Object value = args.getSerializable(SCAM);
         return value instanceof ScamModel ? (ScamModel) value : null;
+    }
+
+    /**
+     * The risk bucket every screen in the flow paints with: the detector's
+     * danger level when the scan supplied one, otherwise the stored scam type.
+     */
+    public static String risk(Bundle args) {
+        String danger = args == null ? null : args.getString(DANGER);
+        if (danger != null) {
+            return RiskUi.bucket(danger);
+        }
+        ScamModel scam = scam(args);
+        return RiskUi.bucket(scam == null ? null : scam.getScamType());
     }
 
     public static ArrayList<String> indicators(Bundle args) {

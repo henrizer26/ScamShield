@@ -266,10 +266,8 @@ public class ScamDetectorTest {
     }
 
     @Test
-    public void normalizationAndTokenization_areStable() {
-        String normalized = ScamDetector.normalize("  TUMA\t  PESA  SASA  ");
-        assertEquals("tuma pesa sasa", normalized);
-        assertEquals(3, ScamDetector.tokenize(normalized).size());
+    public void normalization_isStable() {
+        assertEquals("tuma pesa sasa", ScamDetector.normalize("  TUMA\t  PESA  SASA  "));
     }
 
     @Test

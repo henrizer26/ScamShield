@@ -1,10 +1,7 @@
 package com.group2.scamshield;
 
-import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +15,9 @@ import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
 import com.group2.scamshield.database.DatabaseHelper;
 import com.group2.scamshield.utils.AppPrefs;
+import com.group2.scamshield.utils.NotificationHelper;
 import com.group2.scamshield.utils.ProtectionManager;
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import java.util.ArrayList;
-import java.util.List;
 
 /** The app's settings screen. */
 public class ProfileFragment extends Fragment {
@@ -71,7 +67,8 @@ public class ProfileFragment extends Fragment {
 
         view.findViewById(R.id.rowLanguage).setOnClickListener(v -> showLanguageDialog());
         view.findViewById(R.id.rowTheme).setOnClickListener(v -> showThemeDialog());
-        view.findViewById(R.id.rowNotifications).setOnClickListener(v -> openNotificationSettings());
+        view.findViewById(R.id.rowNotifications).setOnClickListener(v ->
+                NotificationHelper.openSettings(requireContext()));
         view.findViewById(R.id.rowPrivacy).setOnClickListener(v ->
                 showInfoDialog(R.string.settings_privacy, R.string.privacy_message));
         view.findViewById(R.id.rowHelp).setOnClickListener(v ->
@@ -80,8 +77,6 @@ public class ProfileFragment extends Fragment {
                 showInfoDialog(R.string.settings_about, R.string.about_message));
         view.findViewById(R.id.rowReset).setOnClickListener(v -> confirmReset());
 
-        updateSummaries();
-        updateProtectionState();
         return view;
     }
 
@@ -107,13 +102,7 @@ public class ProfileFragment extends Fragment {
             updateProtectionState();
             return;
         }
-
-        List<String> permissions = new ArrayList<>();
-        permissions.add(Manifest.permission.RECEIVE_SMS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            permissions.add(Manifest.permission.POST_NOTIFICATIONS);
-        }
-        protectionPermissionLauncher.launch(permissions.toArray(new String[0]));
+        protectionPermissionLauncher.launch(ProtectionManager.requiredPermissions());
     }
 
     private void updateProtectionState() {
@@ -174,6 +163,7 @@ public class ProfileFragment extends Fragment {
                 .setSingleChoiceItems(options, AppPrefs.isDarkTheme(requireContext()) ? 1 : 0,
                         (dialog, which) -> {
                             dialog.dismiss();
+                            // Also applies the night mode, which reskins every screen.
                             AppPrefs.setDarkTheme(requireContext(), which == 1);
                         })
                 .setNegativeButton(R.string.action_cancel, null)
@@ -186,18 +176,6 @@ public class ProfileFragment extends Fragment {
                 .setMessage(messageRes)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
-    }
-
-    private void openNotificationSettings() {
-        Intent intent;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                    .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().getPackageName());
-        } else {
-            intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                    .setData(android.net.Uri.parse("package:" + requireContext().getPackageName()));
-        }
-        startActivity(intent);
     }
 
     /**

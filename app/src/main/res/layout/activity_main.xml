@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <!-- Four tabs with a gap in the middle for the scan button -->
+    <!-- Four tabs: Home, Scan, History, Settings -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
@@ -37,24 +37,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
-
-    <!-- Scan action, floating over the gap -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabScan"
-        android:layout_width="58dp"
-        android:layout_height="58dp"
-        android:contentDescription="@string/nav_scan"
-        android:src="@drawable/center_focus_24"
-        app:backgroundTint="@color/primary"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        app:fabCustomSize="58dp"
-        app:layout_constraintBottom_toBottomOf="@id/bottom_nav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bottom_nav"
-        app:layout_constraintVertical_bias="0.28"
-        app:maxImageSize="26dp"
-        app:tint="@color/on_primary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
