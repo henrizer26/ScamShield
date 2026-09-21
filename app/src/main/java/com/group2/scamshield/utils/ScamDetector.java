@@ -423,6 +423,14 @@ public final class ScamDetector {
      * amount, which together out-weighed the deduction and warned the user about
      * their own bank. The screen still gets a reason to show, so a safe verdict
      * here reads as a decision the app made rather than as nothing having matched.
+     *
+     * <p>Note that the whitelist table this registry comes from asks for the
+     * opposite: it says a whitelisted sender should be "a recognized
+     * institutional source, not proof that the message is safe", and that
+     * content should still be analysed. That was put to the project owner and
+     * declined - the sender decides here, and the message is not read. Do not
+     * "fix" this by letting rules run behind the gate without asking again;
+     * what it costs is recorded in {@code TRUSTED_SENDER_BLIND_SPOT}.
      */
     private static ScamResult trustedSenderResult(String message, String sender,
                                                   String trustReason) {

@@ -64,6 +64,12 @@ public class ScamDetectorCorpusTest {
      * aggregator that let the ID be registered, which is rarer than the false
      * alarms the gate removes, but it is not impossible.
      *
+     * <p>The whitelist table the registry is built from asks for content to be
+     * analysed even behind the gate, which would catch this message. That was
+     * put to the project owner and declined: the sender decides, and the
+     * message is not read. This entry is the price of that decision, kept
+     * countable so it can be revisited on evidence rather than on memory.
+     *
      * <p>Moving an entry into this list is therefore a product decision, not a
      * way to make a test pass. Anything added here must fail
      * {@link #trustedSenderGate_isTheOnlyThingSilencingThese()}, which checks
