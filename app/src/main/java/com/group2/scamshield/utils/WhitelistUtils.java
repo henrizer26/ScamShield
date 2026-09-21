@@ -22,18 +22,33 @@ public final class WhitelistUtils {
      * the same registered ID reaches a handset spelled several ways ("M-PESA",
      * "MPESA", "MIXX BY YAS"). {@link #collapse(String)} puts the incoming sender
      * into that same shape before it is looked up here.
+     *
+     * <p>The operator, mobile-money and bank entries follow the project's
+     * "ScamShield Tanzania Incoming SMS Whitelist" table. That table calls its
+     * sender IDs candidates to be confirmed against the originating address
+     * Android actually reports, so an entry here is a claim about who may use
+     * the name, not a confirmed observation. Removing one that turns out to be
+     * wrong only costs a false alarm; the exact-match rule below is what stops a
+     * wrong entry from costing anything worse.
      */
     private static final Set<String> REGISTERED_SENDER_IDS = Collections.unmodifiableSet(
             new HashSet<>(Arrays.asList(
                     // Mobile network operators.
-                    "vodacom", "airtel", "tigo", "yas", "halotel", "ttcl",
+                    "vodacom", "airtel", "yas", "halotel", "ttcl",
                     // Mobile money.
-                    "mpesa", "airtelmoney", "tigopesa", "mixx", "mixxbyyas",
-                    "halopesa", "azampesa", "ezypesa", "selcom",
+                    "mpesa", "airtelmoney", "mixx", "mixxbyyas", "halopesa",
+                    "tpesa", "azampesa", "ezypesa", "selcom",
                     // Banks.
-                    "nmb", "nmbbank", "crdb", "crdbbank", "nbc",
+                    "nmb", "nmbbank", "crdb", "crdbbank", "nbc", "absa",
+                    "stanbic", "stanchart", "exim", "dtb", "equity", "kcb",
+                    "ncba", "imbank", "i&m", "amana", "azania", "uba",
+                    "ecobank", "boa", "pbz", "tcb",
                     // Authorities.
-                    "tcra", "nida")));
+                    "tcra", "nida",
+                    // Not in the table, kept from the rule this gate replaced:
+                    // Tigo is the name Yas traded under until the 2023 rebrand,
+                    // and handsets still hold old messages under it.
+                    "tigo", "tigopesa")));
 
     /**
      * Separators that registered sender IDs are spelled with. Only these are
