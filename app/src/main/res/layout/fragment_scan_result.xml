@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="26sp"
                         android:textStyle="bold"
-                        tools:text="HIGH RISK"
+                        tools:text="SCAM"
                         tools:textColor="@color/risk_high" />
 
                     <TextView
@@ -155,7 +155,7 @@
                     android:layout_marginStart="12dp"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
-                    tools:text="High Risk" />
+                    tools:text="Scam" />
 
                 <TextView
                     android:id="@+id/tvRiskScore"

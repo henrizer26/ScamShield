@@ -33,10 +33,10 @@
     <string name="home_messages_scanned">Messages\nScanned</string>
     <string name="home_scams_detected_label">Scams\nDetected</string>
     <string name="home_reports_sent">Reports\nSent</string>
-    <string name="risk_overview">Risk Overview</string>
-    <string name="risk_high">High Risk</string>
-    <string name="risk_medium">Medium Risk</string>
-    <string name="risk_low">Low Risk</string>
+    <string name="risk_overview">Verdict Overview</string>
+    <string name="verdict_scam">Scam</string>
+    <string name="verdict_suspicious">Suspicious</string>
+    <string name="verdict_safe">Safe</string>
     <string name="donut_total">Total</string>
     <string name="recent_alerts">Recent Alerts</string>
     <string name="home_see_all">See All</string>
@@ -56,9 +56,6 @@
     <string name="result_class_safe">SAFE</string>
     <string name="result_class_suspicious">SUSPICIOUS</string>
     <string name="result_class_scam">SCAM</string>
-    <string name="result_high_risk">HIGH RISK</string>
-    <string name="result_medium_risk">MEDIUM RISK</string>
-    <string name="result_low_risk">LOW RISK</string>
     <string name="result_safe">LOOKS SAFE</string>
     <string name="result_scam_subtitle">This message is likely a scam!</string>
     <string name="result_suspicious_subtitle">This message contains suspicious indicators.</string>
@@ -74,7 +71,7 @@
     <string name="label_message">Message</string>
     <string name="label_from">From</string>
     <string name="label_date_detected">Date Detected</string>
-    <string name="label_risk_level">Risk Level</string>
+    <string name="label_risk_level">Verdict</string>
     <string name="label_reporting_to">Reporting to</string>
     <string name="label_additional_info">Additional Info</string>
 
@@ -120,7 +117,7 @@
     <!-- History -->
     <string name="history_title">Scam History</string>
     <string name="history_empty">No scam history yet\nStart reporting scams!</string>
-    <string name="history_empty_filter">Nothing at this risk level</string>
+    <string name="history_empty_filter">Nothing with this verdict</string>
     <string name="filter_all">All</string>
     <string name="date_today">Today</string>
     <string name="date_yesterday">Yesterday</string>

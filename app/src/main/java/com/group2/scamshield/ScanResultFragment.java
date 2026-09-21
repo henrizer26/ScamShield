@@ -32,7 +32,7 @@ public class ScanResultFragment extends Fragment {
                 : args.getString(ScanArgs.CLASSIFICATION, ScamDetector.SCAM);
         boolean isRisky = !ScamDetector.SAFE.equals(classification);
         int score = args == null ? 0 : args.getInt(ScanArgs.SCORE, 0);
-        String risk = isRisky ? ScanArgs.risk(args) : RiskUi.LOW;
+        String risk = isRisky ? ScanArgs.risk(args) : RiskUi.SAFE;
 
         int riskColor = ContextCompat.getColor(requireContext(), RiskUi.color(risk));
         int riskBg = ContextCompat.getColor(requireContext(), RiskUi.background(risk));

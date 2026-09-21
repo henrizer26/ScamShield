@@ -33,10 +33,10 @@
     <string name="home_messages_scanned">Ujumbe\nUliochanganuliwa</string>
     <string name="home_scams_detected_label">Ulaghai\nUliogunduliwa</string>
     <string name="home_reports_sent">Ripoti\nZilizotumwa</string>
-    <string name="risk_overview">Muhtasari wa Hatari</string>
-    <string name="risk_high">Hatari Kubwa</string>
-    <string name="risk_medium">Hatari ya Wastani</string>
-    <string name="risk_low">Hatari Ndogo</string>
+    <string name="risk_overview">Muhtasari wa Uamuzi</string>
+    <string name="verdict_scam">Ulaghai</string>
+    <string name="verdict_suspicious">Inatia Shaka</string>
+    <string name="verdict_safe">Salama</string>
     <string name="donut_total">Jumla</string>
     <string name="recent_alerts">Arifa za Hivi Karibuni</string>
     <string name="home_see_all">Angalia Zote</string>
@@ -56,9 +56,6 @@
     <string name="result_class_safe">SALAMA</string>
     <string name="result_class_suspicious">INATIA SHAKA</string>
     <string name="result_class_scam">ULAGHAI</string>
-    <string name="result_high_risk">HATARI KUBWA</string>
-    <string name="result_medium_risk">HATARI YA WASTANI</string>
-    <string name="result_low_risk">HATARI NDOGO</string>
     <string name="result_safe">UNAONEKANA SALAMA</string>
     <string name="result_scam_subtitle">Ujumbe huu huenda ni ulaghai!</string>
     <string name="result_suspicious_subtitle">Ujumbe huu una viashiria vya kutia shaka.</string>
@@ -74,7 +71,7 @@
     <string name="label_message">Ujumbe</string>
     <string name="label_from">Kutoka</string>
     <string name="label_date_detected">Tarehe ya Kugunduliwa</string>
-    <string name="label_risk_level">Kiwango cha Hatari</string>
+    <string name="label_risk_level">Uamuzi</string>
     <string name="label_reporting_to">Inaripotiwa kwa</string>
     <string name="label_additional_info">Maelezo ya Ziada</string>
 
@@ -118,7 +115,7 @@
     <!-- History -->
     <string name="history_title">Historia ya Ulaghai</string>
     <string name="history_empty">Hakuna historia ya ulaghai bado\nAnza kuripoti ulaghai!</string>
-    <string name="history_empty_filter">Hakuna kitu katika kiwango hiki cha hatari</string>
+    <string name="history_empty_filter">Hakuna kitu chenye uamuzi huu</string>
     <string name="filter_all">Zote</string>
     <string name="date_today">Leo</string>
     <string name="date_yesterday">Jana</string>

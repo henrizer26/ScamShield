@@ -63,7 +63,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/chipHigh"
+                android:id="@+id/chipScam"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:layout_marginStart="10dp"
@@ -71,13 +71,13 @@
                 android:gravity="center"
                 android:paddingStart="18dp"
                 android:paddingEnd="18dp"
-                android:text="@string/risk_high"
+                android:text="@string/verdict_scam"
                 android:textColor="@color/filter_chip_text"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/chipMedium"
+                android:id="@+id/chipSuspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:layout_marginStart="10dp"
@@ -85,13 +85,13 @@
                 android:gravity="center"
                 android:paddingStart="18dp"
                 android:paddingEnd="18dp"
-                android:text="@string/risk_medium"
+                android:text="@string/verdict_suspicious"
                 android:textColor="@color/filter_chip_text"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/chipLow"
+                android:id="@+id/chipSafe"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:layout_marginStart="10dp"
@@ -100,7 +100,7 @@
                 android:gravity="center"
                 android:paddingStart="18dp"
                 android:paddingEnd="18dp"
-                android:text="@string/risk_low"
+                android:text="@string/verdict_safe"
                 android:textColor="@color/filter_chip_text"
                 android:textSize="14sp"
                 android:textStyle="bold" />

@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat;
 import com.group2.scamshield.R;
 
 /**
- * The "Risk Overview" ring: one arc per risk bucket around a total.
+ * The "Verdict Overview" ring: one arc per verdict around the total scanned.
  *
  * <p>Drawn rather than pulled from a chart library so it follows the app's own
  * palette in both themes and costs nothing at build time.
@@ -24,9 +24,9 @@ public class RiskDonutView extends View {
     private final TextPaint labelPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
     private final RectF bounds = new RectF();
 
-    private int high;
-    private int medium;
-    private int low;
+    private int scam;
+    private int suspicious;
+    private int safe;
 
     private String totalText = "0";
     private String labelText = "";
@@ -57,12 +57,12 @@ public class RiskDonutView extends View {
         labelText = context.getString(R.string.donut_total);
     }
 
-    /** Counts per bucket; the ring and the centre total both follow. */
-    public void setCounts(int high, int medium, int low) {
-        this.high = Math.max(0, high);
-        this.medium = Math.max(0, medium);
-        this.low = Math.max(0, low);
-        this.totalText = String.valueOf(this.high + this.medium + this.low);
+    /** Counts per verdict; the ring and the centre total both follow. */
+    public void setCounts(int scam, int suspicious, int safe) {
+        this.scam = Math.max(0, scam);
+        this.suspicious = Math.max(0, suspicious);
+        this.safe = Math.max(0, safe);
+        this.totalText = String.valueOf(this.scam + this.suspicious + this.safe);
         invalidate();
     }
 
@@ -73,16 +73,16 @@ public class RiskDonutView extends View {
         float inset = arcPaint.getStrokeWidth() / 2f + dp(2);
         bounds.set(inset, inset, getWidth() - inset, getHeight() - inset);
 
-        int total = high + medium + low;
+        int total = scam + suspicious + safe;
         if (total == 0) {
             arcPaint.setColor(ContextCompat.getColor(getContext(), R.color.bg_muted));
             canvas.drawArc(bounds, 0, 360, false, arcPaint);
         } else {
-            // Starts at the top and runs clockwise: high, medium, low.
+            // Starts at the top and runs clockwise: scam, suspicious, safe.
             float start = -90f;
-            start = drawSlice(canvas, start, high / (float) total, R.color.risk_high);
-            start = drawSlice(canvas, start, medium / (float) total, R.color.risk_medium);
-            drawSlice(canvas, start, low / (float) total, R.color.risk_low);
+            start = drawSlice(canvas, start, scam / (float) total, R.color.risk_high);
+            start = drawSlice(canvas, start, suspicious / (float) total, R.color.risk_medium);
+            drawSlice(canvas, start, safe / (float) total, R.color.risk_low);
         }
 
         float centerX = getWidth() / 2f;

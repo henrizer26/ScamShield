@@ -98,7 +98,7 @@
                         android:layout_marginStart="10dp"
                         android:textSize="13sp"
                         android:textStyle="bold"
-                        tools:text="HIGH RISK"
+                        tools:text="SCAM"
                         tools:textColor="@color/risk_high" />
                 </LinearLayout>
             </LinearLayout>

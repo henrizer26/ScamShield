@@ -53,11 +53,11 @@ public class HistoryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         chips[0] = view.findViewById(R.id.chipAll);
-        chips[1] = view.findViewById(R.id.chipHigh);
-        chips[2] = view.findViewById(R.id.chipMedium);
-        chips[3] = view.findViewById(R.id.chipLow);
+        chips[1] = view.findViewById(R.id.chipScam);
+        chips[2] = view.findViewById(R.id.chipSuspicious);
+        chips[3] = view.findViewById(R.id.chipSafe);
 
-        final String[] buckets = {null, RiskUi.HIGH, RiskUi.MEDIUM, RiskUi.LOW};
+        final String[] buckets = {null, RiskUi.SCAM, RiskUi.SUSPICIOUS, RiskUi.SAFE};
         for (int i = 0; i < chips.length; i++) {
             final String bucket = buckets[i];
             chips[i].setOnClickListener(new View.OnClickListener() {
@@ -88,9 +88,9 @@ public class HistoryFragment extends Fragment {
     private void applyFilter(String bucket) {
         activeFilter = bucket;
         chips[0].setSelected(bucket == null);
-        chips[1].setSelected(RiskUi.HIGH.equals(bucket));
-        chips[2].setSelected(RiskUi.MEDIUM.equals(bucket));
-        chips[3].setSelected(RiskUi.LOW.equals(bucket));
+        chips[1].setSelected(RiskUi.SCAM.equals(bucket));
+        chips[2].setSelected(RiskUi.SUSPICIOUS.equals(bucket));
+        chips[3].setSelected(RiskUi.SAFE.equals(bucket));
         loadScamHistory();
     }
 
@@ -98,9 +98,9 @@ public class HistoryFragment extends Fragment {
     private void showFilterMenu(View anchor) {
         PopupMenu menu = new PopupMenu(requireContext(), anchor);
         menu.getMenu().add(0, 0, 0, R.string.filter_all);
-        menu.getMenu().add(0, 1, 1, R.string.risk_high);
-        menu.getMenu().add(0, 2, 2, R.string.risk_medium);
-        menu.getMenu().add(0, 3, 3, R.string.risk_low);
+        menu.getMenu().add(0, 1, 1, R.string.verdict_scam);
+        menu.getMenu().add(0, 2, 2, R.string.verdict_suspicious);
+        menu.getMenu().add(0, 3, 3, R.string.verdict_safe);
         menu.getMenu().add(0, 4, 4, R.string.dialog_clear_title);
 
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -111,13 +111,13 @@ public class HistoryFragment extends Fragment {
                         applyFilter(null);
                         return true;
                     case 1:
-                        applyFilter(RiskUi.HIGH);
+                        applyFilter(RiskUi.SCAM);
                         return true;
                     case 2:
-                        applyFilter(RiskUi.MEDIUM);
+                        applyFilter(RiskUi.SUSPICIOUS);
                         return true;
                     case 3:
-                        applyFilter(RiskUi.LOW);
+                        applyFilter(RiskUi.SAFE);
                         return true;
                     case 4:
                         confirmClearAll();
