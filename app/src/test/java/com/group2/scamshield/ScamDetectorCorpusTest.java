@@ -15,9 +15,13 @@ import static org.junit.Assert.assertTrue;
  * <p>The corpus is a development set: the rules and these messages were written
  * together, so a perfect score here is a regression guard, not evidence of field
  * accuracy. Quoting it as field accuracy would be dishonest. What it does prove is
- * that a change to one rule cannot silently break the twenty scam shapes and
+ * that a change to one rule cannot silently break the nineteen scam shapes and
  * twenty genuine shapes the app was built to separate - which is the property a
  * rule table needs, because every rule edit is global.
+ *
+ * <p>A twentieth scam shape sits in {@link #TRUSTED_SENDER_BLIND_SPOT} instead,
+ * because the trusted-sender gate answers it before the rules see it. It is
+ * listed rather than deleted so that what the gate costs is counted.
  *
  * <p>To report real accuracy, replace the corpus below with messages collected
  * from handsets and labelled by someone who did not write the rules.
@@ -44,8 +48,29 @@ public class ScamDetectorCorpusTest {
         {"0614159000", "Habari ndugu, naomba tuongee kuhusu biashara."},
         {"0677889900", "Ingiza 0TP uliyotumiwa kwenye link hii http://voda-com.help ili kufungua akaunti yako."},
         {"0611223344", "Tuma tsh 30,000 kwa namba ya wakala 0611223344 sasa hivi, ni dharura."},
-        {"MIXX", "Mteja wa YAS, akaunti yako itafungwa. Jibu na namba ya siri yako kuthibitisha."},
         {"0700111222", "Nina dawa ya kutajirika na hirizi ya kuvutia wateja. Wasiliana nami leo."},
+    };
+
+    /**
+     * Scams the app deliberately does not flag, kept here rather than deleted so
+     * the cost of the trusted-sender gate stays visible and counted.
+     *
+     * <p>This one addresses itself as "MIXX", a sender ID the networks reserve,
+     * so the gate answers it safe before any rule runs. The trade is deliberate:
+     * genuine operator and bank traffic is the wording the rules read worst -
+     * an OTP carries a credential word, a deadline and an amount - and warning a
+     * user about their own bank is the failure that makes people switch the app
+     * off. Reaching this inbox at all requires sender-ID spoofing or an
+     * aggregator that let the ID be registered, which is rarer than the false
+     * alarms the gate removes, but it is not impossible.
+     *
+     * <p>Moving an entry into this list is therefore a product decision, not a
+     * way to make a test pass. Anything added here must fail
+     * {@link #trustedSenderGate_isTheOnlyThingSilencingThese()}, which checks
+     * that the gate, and not weak wording, is what let it through.
+     */
+    private static final String[][] TRUSTED_SENDER_BLIND_SPOT = {
+        {"MIXX", "Mteja wa YAS, akaunti yako itafungwa. Jibu na namba ya siri yako kuthibitisha."},
     };
 
     /** Everyday traffic the app must leave alone. */
@@ -106,6 +131,32 @@ public class ScamDetectorCorpusTest {
 
         assertTrue("recall dropped below 0.90\n" + report, recall >= 0.90);
         assertTrue("precision dropped below 0.90\n" + report, precision >= 0.90);
+    }
+
+    /**
+     * Pins the exact shape of the blind spot the trusted-sender gate opens.
+     *
+     * <p>For every entry: the app stays silent, the gate is what silenced it,
+     * and the identical message from an ordinary handset is still caught. The
+     * last part is what keeps this list honest - without it, a scam the rules
+     * simply miss could be filed here and look intentional.
+     */
+    @Test
+    public void trustedSenderGate_isTheOnlyThingSilencingThese() {
+        for (String[] row : TRUSTED_SENDER_BLIND_SPOT) {
+            ScamDetector.ScamResult trusted = ScamDetector.detect(row[1], row[0]);
+
+            assertTrue(row[0] + " is no longer silenced - move it back into "
+                            + "SCAM_CORPUS rather than leaving it here",
+                    !trusted.shouldAlert());
+            assertTrue(row[0] + " was silenced by something other than the gate",
+                    trusted.matchedRules.contains(ScamDetector.TRUSTED_SENDER_RULE));
+
+            ScamDetector.ScamResult fromHandset = ScamDetector.detect(row[1], "0712000111");
+            assertTrue("the rules miss \"" + row[1] + "\" on its wording alone, so "
+                            + "the gate is not what is costing this detection",
+                    fromHandset.shouldAlert());
+        }
     }
 
     /**

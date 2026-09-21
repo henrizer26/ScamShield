@@ -25,9 +25,15 @@ two are not interchangeable and both are kept on purpose:
 
 1. **No sender column.** The corpus carries message bodies only, so the test
    passes an empty sender. Every sender-dependent rule sits idle in this
-   measurement: `S03_TRUSTED_SENDER_ID`, `C04_BRAND_MISMATCH`, and the sender
+   measurement: the trusted-sender gate, `C04_BRAND_MISMATCH`, and the sender
    half of `R01_KNOWN_NUMBER`. Real recall on a handset, where the sender is
    known, should be higher than the figure here.
+
+   An empty sender is never a trusted one, so the gate cannot silence anything
+   in this corpus. That is deliberate — it keeps these figures comparable with
+   the ones measured before the gate existed — but it also means this corpus
+   says nothing about what the gate costs. `TRUSTED_SENDER_BLIND_SPOT` in
+   `ScamDetectorCorpusTest` is where that cost is recorded.
 2. **Labels are the collector's, not a security analyst's.** `trust` means "not
    reported as a scam", which is not the same as "verified benign".
 3. **Mojibake.** A few rows contain replacement characters where non-breaking
