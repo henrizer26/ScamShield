@@ -58,12 +58,9 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.ViewHolder> 
                 ContextCompat.getColor(context, RiskUi.background(risk))));
         ImageViewCompat.setImageTintList(holder.ivRisk, ColorStateList.valueOf(riskColor));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onScamClick(scam);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onScamClick(scam);
             }
         });
     }

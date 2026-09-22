@@ -53,24 +53,16 @@ public class OnboardingActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
         }).attach();
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int current = viewPager.getCurrentItem();
-                if (current < titles.length - 1) {
-                    viewPager.setCurrentItem(current + 1);
-                } else {
-                    finishOnboarding();
-                }
-            }
-        });
-
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnNext.setOnClickListener(v -> {
+            int current = viewPager.getCurrentItem();
+            if (current < titles.length - 1) {
+                viewPager.setCurrentItem(current + 1);
+            } else {
                 finishOnboarding();
             }
         });
+
+        btnSkip.setOnClickListener(v -> finishOnboarding());
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

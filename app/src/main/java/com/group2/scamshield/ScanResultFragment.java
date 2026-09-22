@@ -32,7 +32,7 @@ public class ScanResultFragment extends Fragment {
                 : args.getString(ScanArgs.CLASSIFICATION, ScamDetector.SCAM);
         boolean isRisky = !ScamDetector.SAFE.equals(classification);
         int score = args == null ? 0 : args.getInt(ScanArgs.SCORE, 0);
-        String risk = isRisky ? ScanArgs.risk(args) : RiskUi.LOW;
+        String risk = isRisky ? ScanArgs.risk(args) : RiskUi.SAFE;
 
         int riskColor = ContextCompat.getColor(requireContext(), RiskUi.color(risk));
         int riskBg = ContextCompat.getColor(requireContext(), RiskUi.background(risk));
@@ -76,26 +76,14 @@ public class ScanResultFragment extends Fragment {
 
         addIndicators(inflater, indicatorContainer, ScanArgs.indicators(args), riskColor);
 
-        view.findViewById(R.id.btnBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigateUp();
-            }
-        });
+        view.findViewById(R.id.btnBack).setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp());
 
-        view.findViewById(R.id.btnViewDetails).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.scamDetailsFragment, args);
-            }
-        });
+        view.findViewById(R.id.btnViewDetails).setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.scamDetailsFragment, args));
 
-        view.findViewById(R.id.btnReportScam).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.reportScamFragment, args);
-            }
-        });
+        view.findViewById(R.id.btnReportScam).setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.reportScamFragment, args));
 
         return view;
     }

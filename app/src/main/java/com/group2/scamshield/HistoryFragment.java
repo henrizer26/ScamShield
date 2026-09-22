@@ -53,28 +53,18 @@ public class HistoryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         chips[0] = view.findViewById(R.id.chipAll);
-        chips[1] = view.findViewById(R.id.chipHigh);
-        chips[2] = view.findViewById(R.id.chipMedium);
-        chips[3] = view.findViewById(R.id.chipLow);
+        chips[1] = view.findViewById(R.id.chipScam);
+        chips[2] = view.findViewById(R.id.chipSuspicious);
+        chips[3] = view.findViewById(R.id.chipSafe);
 
-        final String[] buckets = {null, RiskUi.HIGH, RiskUi.MEDIUM, RiskUi.LOW};
+        final String[] buckets = {null, RiskUi.SCAM, RiskUi.SUSPICIOUS, RiskUi.SAFE};
         for (int i = 0; i < chips.length; i++) {
             final String bucket = buckets[i];
-            chips[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    applyFilter(bucket);
-                }
-            });
+            chips[i].setOnClickListener(v -> applyFilter(bucket));
         }
         applyFilter(null);
 
-        view.findViewById(R.id.btnFilter).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFilterMenu(v);
-            }
-        });
+        view.findViewById(R.id.btnFilter).setOnClickListener(v -> showFilterMenu(v));
 
         return view;
     }
@@ -88,9 +78,9 @@ public class HistoryFragment extends Fragment {
     private void applyFilter(String bucket) {
         activeFilter = bucket;
         chips[0].setSelected(bucket == null);
-        chips[1].setSelected(RiskUi.HIGH.equals(bucket));
-        chips[2].setSelected(RiskUi.MEDIUM.equals(bucket));
-        chips[3].setSelected(RiskUi.LOW.equals(bucket));
+        chips[1].setSelected(RiskUi.SCAM.equals(bucket));
+        chips[2].setSelected(RiskUi.SUSPICIOUS.equals(bucket));
+        chips[3].setSelected(RiskUi.SAFE.equals(bucket));
         loadScamHistory();
     }
 
@@ -98,33 +88,30 @@ public class HistoryFragment extends Fragment {
     private void showFilterMenu(View anchor) {
         PopupMenu menu = new PopupMenu(requireContext(), anchor);
         menu.getMenu().add(0, 0, 0, R.string.filter_all);
-        menu.getMenu().add(0, 1, 1, R.string.risk_high);
-        menu.getMenu().add(0, 2, 2, R.string.risk_medium);
-        menu.getMenu().add(0, 3, 3, R.string.risk_low);
+        menu.getMenu().add(0, 1, 1, R.string.verdict_scam);
+        menu.getMenu().add(0, 2, 2, R.string.verdict_suspicious);
+        menu.getMenu().add(0, 3, 3, R.string.verdict_safe);
         menu.getMenu().add(0, 4, 4, R.string.dialog_clear_title);
 
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case 0:
-                        applyFilter(null);
-                        return true;
-                    case 1:
-                        applyFilter(RiskUi.HIGH);
-                        return true;
-                    case 2:
-                        applyFilter(RiskUi.MEDIUM);
-                        return true;
-                    case 3:
-                        applyFilter(RiskUi.LOW);
-                        return true;
-                    case 4:
-                        confirmClearAll();
-                        return true;
-                    default:
-                        return false;
-                }
+        menu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case 0:
+                    applyFilter(null);
+                    return true;
+                case 1:
+                    applyFilter(RiskUi.SCAM);
+                    return true;
+                case 2:
+                    applyFilter(RiskUi.SUSPICIOUS);
+                    return true;
+                case 3:
+                    applyFilter(RiskUi.SAFE);
+                    return true;
+                case 4:
+                    confirmClearAll();
+                    return true;
+                default:
+                    return false;
             }
         });
         menu.show();
@@ -156,12 +143,7 @@ public class HistoryFragment extends Fragment {
         tvEmpty.setVisibility(View.GONE);
 
         ScamAdapter adapter = new ScamAdapter(getActivity(), scamList,
-                new ScamAdapter.OnScamClickListener() {
-                    @Override
-                    public void onScamClick(ScamModel scam) {
-                        showScamOptionsDialog(scam);
-                    }
-                });
+                scam -> showScamOptionsDialog(scam));
         recyclerView.setAdapter(adapter);
     }
 
@@ -197,26 +179,23 @@ public class HistoryFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle(R.string.dialog_scam_options);
-        builder.setAdapter(optionsAdapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        openDetails(scam);
-                        break;
-                    case 1:
-                        callNumber(scam.getPhoneNumber());
-                        break;
-                    case 2:
-                        reportToTCRA(scam);
-                        break;
-                    case 3:
-                        deleteScam(scam);
-                        break;
-                    case 4:
-                        copyDetails(scam);
-                        break;
-                }
+        builder.setAdapter(optionsAdapter, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    openDetails(scam);
+                    break;
+                case 1:
+                    callNumber(scam.getPhoneNumber());
+                    break;
+                case 2:
+                    reportToTCRA(scam);
+                    break;
+                case 3:
+                    deleteScam(scam);
+                    break;
+                case 4:
+                    copyDetails(scam);
+                    break;
             }
         });
         builder.show();
@@ -257,14 +236,11 @@ public class HistoryFragment extends Fragment {
         new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.dialog_delete_title)
                 .setMessage(R.string.dialog_delete_message)
-                .setPositiveButton(R.string.action_delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dbHelper.deleteScam(scam.getId());
-                        loadScamHistory();
-                        Toast.makeText(getActivity(), R.string.toast_scam_deleted,
-                                Toast.LENGTH_SHORT).show();
-                    }
+                .setPositiveButton(R.string.action_delete, (dialog, which) -> {
+                    dbHelper.deleteScam(scam.getId());
+                    loadScamHistory();
+                    Toast.makeText(getActivity(), R.string.toast_scam_deleted,
+                            Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton(R.string.action_cancel, null)
                 .show();
@@ -292,14 +268,11 @@ public class HistoryFragment extends Fragment {
         new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.dialog_clear_title)
                 .setMessage(R.string.dialog_clear_message)
-                .setPositiveButton(R.string.action_delete_all, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dbHelper.deleteAllScams();
-                        loadScamHistory();
-                        Toast.makeText(getActivity(), R.string.toast_history_cleared,
-                                Toast.LENGTH_SHORT).show();
-                    }
+                .setPositiveButton(R.string.action_delete_all, (dialog, which) -> {
+                    dbHelper.deleteAllScams();
+                    loadScamHistory();
+                    Toast.makeText(getActivity(), R.string.toast_history_cleared,
+                            Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton(R.string.action_cancel, null)
                 .show();

@@ -41,19 +41,10 @@ public class AnalyzeFragment extends Fragment {
         etMessage = view.findViewById(R.id.etMessage);
         dbHelper = new DatabaseHelper(getActivity());
 
-        view.findViewById(R.id.btnBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.homeFragment, null, Nav.tabs());
-            }
-        });
+        view.findViewById(R.id.btnBack).setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.homeFragment, null, Nav.tabs()));
 
-        view.findViewById(R.id.btnAnalyzeNow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                analyze(v);
-            }
-        });
+        view.findViewById(R.id.btnAnalyzeNow).setOnClickListener(v -> analyze(v));
 
         // A message shared from another app arrives as an argument.
         Bundle args = getArguments();

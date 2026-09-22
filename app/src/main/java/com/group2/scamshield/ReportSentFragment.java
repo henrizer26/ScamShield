@@ -30,19 +30,11 @@ public class ReportSentFragment extends Fragment {
         ((TextView) view.findViewById(R.id.tvNext1))
                 .setText(getString(R.string.sent_next_1, channelName));
 
-        view.findViewById(R.id.btnDone).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.homeFragment, null, Nav.tabs());
-            }
-        });
+        view.findViewById(R.id.btnDone).setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.homeFragment, null, Nav.tabs()));
 
-        view.findViewById(R.id.btnViewHistory).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.historyFragment, null, Nav.tabs());
-            }
-        });
+        view.findViewById(R.id.btnViewHistory).setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.historyFragment, null, Nav.tabs()));
 
         return view;
     }

@@ -51,33 +51,15 @@ public class ScamDetailsFragment extends Fragment {
         LinearLayout indicators = view.findViewById(R.id.indicatorContainer);
         ScanResultFragment.addIndicators(inflater, indicators, ScanArgs.indicators(args), riskColor);
 
-        view.findViewById(R.id.btnBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigateUp();
-            }
-        });
+        view.findViewById(R.id.btnBack).setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp());
 
-        view.findViewById(R.id.btnShare).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shareScam(scam);
-            }
-        });
+        view.findViewById(R.id.btnShare).setOnClickListener(v -> shareScam(scam));
 
-        view.findViewById(R.id.btnReportScam).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.reportScamFragment, args);
-            }
-        });
+        view.findViewById(R.id.btnReportScam).setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.reportScamFragment, args));
 
-        view.findViewById(R.id.btnBlockNumber).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmBlock(scam);
-            }
-        });
+        view.findViewById(R.id.btnBlockNumber).setOnClickListener(v -> confirmBlock(scam));
 
         return view;
     }

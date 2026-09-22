@@ -10,7 +10,7 @@ import com.group2.scamshield.utils.DateFormats;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class  DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "scamshield.db";
     private static final int DATABASE_VERSION = 1;

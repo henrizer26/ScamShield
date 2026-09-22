@@ -111,7 +111,7 @@
                         android:textColor="@color/text_primary"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        tools:text="High Risk" />
+                        tools:text="Scam" />
                 </LinearLayout>
             </LinearLayout>
 

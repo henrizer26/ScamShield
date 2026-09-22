@@ -51,7 +51,7 @@ public class ScamAdapter extends RecyclerView.Adapter<ScamAdapter.ViewHolder> {
         holder.tvTime.setText(DateFormats.timeLabel(scam.getDateTime()));
 
         // Same mapping as the dashboard, so a type such as "Fake Traditional
-        // Healer Scam" is never shown as low risk here.
+        // Healer Scam" is never shown as safe here.
         String risk = ScamDetector.riskLevelFor(scam.getScamType());
         int riskColor = ContextCompat.getColor(context, RiskUi.color(risk));
 
@@ -61,12 +61,9 @@ public class ScamAdapter extends RecyclerView.Adapter<ScamAdapter.ViewHolder> {
                 ContextCompat.getColor(context, RiskUi.background(risk))));
         ImageViewCompat.setImageTintList(holder.ivRisk, ColorStateList.valueOf(riskColor));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onScamClick(scam);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onScamClick(scam);
             }
         });
     }

@@ -50,19 +50,11 @@ public class ReviewReportFragment extends Fragment {
         ((TextView) view.findViewById(R.id.tvNotes))
                 .setText(TextUtils.isEmpty(notes) ? getString(R.string.none_placeholder) : notes);
 
-        view.findViewById(R.id.btnBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigateUp();
-            }
-        });
+        view.findViewById(R.id.btnBack).setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp());
 
-        view.findViewById(R.id.btnSend).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                send(v, scam, channel, notes, args);
-            }
-        });
+        view.findViewById(R.id.btnSend).setOnClickListener(v ->
+                send(v, scam, channel, notes, args));
 
         return view;
     }

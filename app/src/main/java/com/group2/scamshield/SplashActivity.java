@@ -29,15 +29,12 @@ public class SplashActivity extends AppCompatActivity {
         progressAnimator.setInterpolator(new LinearInterpolator());
         progressAnimator.start();
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = AppPrefs.isFirstLaunch(SplashActivity.this)
-                        ? new Intent(SplashActivity.this, OnboardingActivity.class)
-                        : new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        handler.postDelayed(() -> {
+            Intent intent = AppPrefs.isFirstLaunch(SplashActivity.this)
+                    ? new Intent(SplashActivity.this, OnboardingActivity.class)
+                    : new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }, SPLASH_DELAY);
     }
 

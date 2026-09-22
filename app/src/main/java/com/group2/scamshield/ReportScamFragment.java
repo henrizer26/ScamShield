@@ -57,18 +57,8 @@ public class ReportScamFragment extends Fragment {
         radioOperatorLeft = view.findViewById(R.id.radioOperatorLeft);
         radioOperatorRight = view.findViewById(R.id.radioOperatorRight);
 
-        view.findViewById(R.id.rowTcra).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectChannel(CHANNEL_TCRA);
-            }
-        });
-        view.findViewById(R.id.rowOperator).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectChannel(CHANNEL_OPERATOR);
-            }
-        });
+        view.findViewById(R.id.rowTcra).setOnClickListener(v -> selectChannel(CHANNEL_TCRA));
+        view.findViewById(R.id.rowOperator).setOnClickListener(v -> selectChannel(CHANNEL_OPERATOR));
         selectChannel(CHANNEL_TCRA);
 
         final EditText etNotes = view.findViewById(R.id.etNotes);
@@ -89,19 +79,12 @@ public class ReportScamFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.btnBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigateUp();
-            }
-        });
+        view.findViewById(R.id.btnBack).setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp());
 
-        view.findViewById(R.id.btnContinue).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle next = ScanArgs.withReport(args, channel, etNotes.getText().toString().trim());
-                Navigation.findNavController(v).navigate(R.id.reviewReportFragment, next);
-            }
+        view.findViewById(R.id.btnContinue).setOnClickListener(v -> {
+            Bundle next = ScanArgs.withReport(args, channel, etNotes.getText().toString().trim());
+            Navigation.findNavController(v).navigate(R.id.reviewReportFragment, next);
         });
 
         return view;

@@ -18,7 +18,6 @@
     <color name="risk_low_bg">#16321F</color>
 
     <!-- Status -->
-    <color name="accent_warning">#FFC24B</color>
     <color name="success_strong">#4CC96A</color>
     <color name="info_blue">#6FBCFF</color>
 

@@ -365,13 +365,13 @@ public final class ScamDetector {
         String dangerLevel;
         if (score >= SCAM_THRESHOLD) {
             classification = SCAM;
-            dangerLevel = "High Risk";
+            dangerLevel = RiskUi.SCAM;
         } else if (score >= SUSPICIOUS_THRESHOLD) {
             classification = SUSPICIOUS;
-            dangerLevel = "Medium Risk";
+            dangerLevel = RiskUi.SUSPICIOUS;
         } else {
             classification = SAFE;
-            dangerLevel = "Low Risk";
+            dangerLevel = RiskUi.SAFE;
         }
 
         String category = strongestCategory(categoryScores);
@@ -605,25 +605,25 @@ public final class ScamDetector {
         }
     }
 
-    /** Risk bucket for current stored history rows. */
+    /** Verdict bucket for current stored history rows. */
     public static String riskLevelFor(String scamType) {
         if (scamType == null) {
-            return "Low";
+            return RiskUi.SAFE;
         }
         String type = scamType.toLowerCase(Locale.ROOT);
         if (type.startsWith("suspicious:")) {
-            return "Medium";
+            return RiskUi.SUSPICIOUS;
         }
         if (type.startsWith("safe")) {
-            return "Low";
+            return RiskUi.SAFE;
         }
         if (type.contains("scam") || type.contains("money") || type.contains("prize")
                 || type.contains("credential") || type.contains("account")
                 || type.contains("healer") || type.contains("loan")
                 || type.contains("impersonation") || type.contains("job")) {
-            return "High";
+            return RiskUi.SCAM;
         }
-        return "Medium";
+        return RiskUi.SUSPICIOUS;
     }
 
     public static final class ScamResult {

@@ -20,13 +20,13 @@ import com.group2.scamshield.views.RiskDonutView;
 import androidx.fragment.app.Fragment;
 import java.util.List;
 
-/** Dashboard: totals, the risk ring and the newest alerts. */
+/** Dashboard: totals, the verdict ring and the newest alerts. */
 public class HomeFragment extends Fragment {
 
     private static final int MAX_ALERTS = 3;
 
     private TextView tvScanned, tvDetected, tvReportsSent;
-    private TextView tvHighRisk, tvMediumRisk, tvLowRisk, tvEmpty;
+    private TextView tvScamCount, tvSuspiciousCount, tvSafeCount, tvEmpty;
     private RiskDonutView riskDonut;
     private RecyclerView recyclerAlerts;
     private DatabaseHelper dbHelper;
@@ -38,9 +38,9 @@ public class HomeFragment extends Fragment {
         tvScanned = view.findViewById(R.id.tvScanned);
         tvDetected = view.findViewById(R.id.tvDetected);
         tvReportsSent = view.findViewById(R.id.tvReportsSent);
-        tvHighRisk = view.findViewById(R.id.tvHighRisk);
-        tvMediumRisk = view.findViewById(R.id.tvMediumRisk);
-        tvLowRisk = view.findViewById(R.id.tvLowRisk);
+        tvScamCount = view.findViewById(R.id.tvScamCount);
+        tvSuspiciousCount = view.findViewById(R.id.tvSuspiciousCount);
+        tvSafeCount = view.findViewById(R.id.tvSafeCount);
         tvEmpty = view.findViewById(R.id.tvEmpty);
         riskDonut = view.findViewById(R.id.riskDonut);
         recyclerAlerts = view.findViewById(R.id.recyclerAlerts);
@@ -48,19 +48,11 @@ public class HomeFragment extends Fragment {
         dbHelper = new DatabaseHelper(getActivity());
         recyclerAlerts.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        view.findViewById(R.id.tvSeeAll).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.historyFragment, null, Nav.tabs());
-            }
-        });
+        view.findViewById(R.id.tvSeeAll).setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.historyFragment, null, Nav.tabs()));
 
-        view.findViewById(R.id.ivNotifications).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NotificationHelper.openSettings(requireContext());
-            }
-        });
+        view.findViewById(R.id.ivNotifications).setOnClickListener(v ->
+                NotificationHelper.openSettings(requireContext()));
 
         return view;
     }
@@ -73,30 +65,37 @@ public class HomeFragment extends Fragment {
 
     private void loadStats() {
         List<ScamModel> scams = dbHelper.getAllScams();
-        int total = scams.size();
+        int stored = scams.size();
 
         // Clean messages are not stored, so the scan counter is kept in prefs;
         // it can only ever be behind the database, never ahead of it.
-        tvScanned.setText(String.valueOf(Math.max(AppPrefs.getScannedCount(requireContext()), total)));
-        tvDetected.setText(String.valueOf(total));
+        int scanned = Math.max(AppPrefs.getScannedCount(requireContext()), stored);
+
+        tvScanned.setText(String.valueOf(scanned));
+        tvDetected.setText(String.valueOf(stored));
         tvReportsSent.setText(String.valueOf(dbHelper.getReportedCount()));
 
-        int high = 0, medium = 0, low = 0;
-        for (ScamModel scam : scams) {
-            String risk = ScamDetector.riskLevelFor(scam.getScamType());
-            if (RiskUi.HIGH.equals(risk)) {
-                high++;
-            } else if (RiskUi.MEDIUM.equals(risk)) {
-                medium++;
+        int scam = 0, suspicious = 0, safe = 0;
+        for (ScamModel row : scams) {
+            String verdict = ScamDetector.riskLevelFor(row.getScamType());
+            if (RiskUi.SCAM.equals(verdict)) {
+                scam++;
+            } else if (RiskUi.SUSPICIOUS.equals(verdict)) {
+                suspicious++;
             } else {
-                low++;
+                safe++;
             }
         }
 
-        tvHighRisk.setText(String.valueOf(high));
-        tvMediumRisk.setText(String.valueOf(medium));
-        tvLowRisk.setText(String.valueOf(low));
-        riskDonut.setCounts(high, medium, low);
+        // Safe messages leave no row behind, so they are whatever the scan
+        // counter holds over and above the stored ones. Counting them here is
+        // what makes the three verdicts add up to "Messages Scanned".
+        safe += scanned - stored;
+
+        tvScamCount.setText(String.valueOf(scam));
+        tvSuspiciousCount.setText(String.valueOf(suspicious));
+        tvSafeCount.setText(String.valueOf(safe));
+        riskDonut.setCounts(scam, suspicious, safe);
 
         showAlerts(scams);
     }
@@ -113,12 +112,7 @@ public class HomeFragment extends Fragment {
 
         List<ScamModel> newest = scams.subList(0, Math.min(MAX_ALERTS, scams.size()));
         recyclerAlerts.setAdapter(new AlertAdapter(getActivity(), newest,
-                new ScamAdapter.OnScamClickListener() {
-                    @Override
-                    public void onScamClick(ScamModel scam) {
-                        openDetails(scam);
-                    }
-                }));
+                scam -> openDetails(scam)));
     }
 
     private void openDetails(ScamModel scam) {

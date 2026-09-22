@@ -1,15 +1,28 @@
-*.iml
+# Build output
+/build
+/app/build
 .gradle
-/local.properties
+.cxx
+.externalNativeBuild
+/captures
+
+# Local machine configuration
+local.properties
+*.iml
+.DS_Store
+
+# Android Studio state that is specific to one developer's machine
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
+/.idea/deploymentTargetSelector.xml
+/.idea/deviceManager.xml
+
+# Claude Code scratch worktrees
+/.claude
+
+# Word keeps a lock file beside any open document
+~$*
