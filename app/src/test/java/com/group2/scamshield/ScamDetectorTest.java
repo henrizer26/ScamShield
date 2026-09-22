@@ -274,6 +274,7 @@ public class ScamDetectorTest {
             "BOA",                                  // 27 Bank of Africa Tanzania
             "PBZ",                                  // 28 People's Bank of Zanzibar
             "TCB",                                  // 29 Tanzania Commercial Bank
+            "MKOMBOZI",                             // 30 Mkombozi Bank
         };
 
         // Wording a real alert is entitled to use and the rules read worst.
