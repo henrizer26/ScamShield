@@ -42,7 +42,7 @@ public final class WhitelistUtils {
                     "nmb", "nmbbank", "crdb", "crdbbank", "nbc", "absa",
                     "stanbic", "stanchart", "exim", "dtb", "equity", "kcb",
                     "ncba", "imbank", "i&m", "amana", "azania", "uba",
-                    "ecobank", "boa", "pbz", "tcb",
+                    "ecobank", "boa", "pbz", "tcb", "mkombozi",
                     // Authorities.
                     "tcra", "nida",
                     // Not in the table, kept from the rule this gate replaced:
