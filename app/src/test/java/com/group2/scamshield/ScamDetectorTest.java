@@ -164,10 +164,17 @@ public class ScamDetectorTest {
 
     // ------------------------------------------------------ genuine traffic
 
+    // Each of the three below is about the wording, so each is scored from an
+    // ordinary mobile number. Sent from the bank's own sender ID they would be
+    // answered by the trusted-sender gate before a single rule ran, and the
+    // assertion about which rule fired would pass without meaning anything.
+    // That the gate answers them is worth testing too, and is tested separately
+    // in trustedSender_* below.
+
     @Test
     public void bankSecurityAdvice_isNotReadAsACredentialRequest() {
         ScamDetector.ScamResult result = ScamDetector.detect(
-                "Your OTP is 483920. Do not share it with anyone.", "CRDB");
+                "Your OTP is 483920. Do not share it with anyone.", "0712000111");
 
         assertEquals(ScamDetector.SAFE, result.classification);
         assertFalse(result.matchedRules.contains("R02_CREDENTIAL_REQUEST"));
@@ -177,7 +184,7 @@ public class ScamDetectorTest {
     public void swahiliSecurityAdvice_isSuppressed() {
         ScamDetector.ScamResult result = ScamDetector.detect(
                 "Hatutakuomba PIN yako. Usimpe mtu yeyote namba ya siri ya akaunti yako.",
-                "NMB");
+                "0712000111");
 
         assertEquals(ScamDetector.SAFE, result.classification);
         assertTrue(result.matchedRules.contains("S01_SECURITY_ADVICE"));
@@ -187,10 +194,181 @@ public class ScamDetectorTest {
     public void transactionReceipt_isSafe() {
         ScamDetector.ScamResult result = ScamDetector.detect(
                 "Umepokea Tsh 50,000 kutoka JOHN MAKALA. Muamala namba QR12345. "
-                        + "Salio lako ni Tsh 62,300.", "M-PESA");
+                        + "Salio lako ni Tsh 62,300.", "0712000111");
 
         assertEquals(ScamDetector.SAFE, result.classification);
         assertTrue(result.matchedRules.contains("S02_TRANSACTION_RECEIPT"));
+    }
+
+    // ------------------------------------------------- the trusted-sender gate
+
+    @Test
+    public void registeredSenderId_isSafeWithoutScoringTheWording() {
+        // The wording a real bank alert has to be allowed to use: a credential
+        // word, a deadline and an amount. Scored, it reads as a phishing text.
+        String body = "Ndugu mteja, salio lako ni Tsh 62,300. Usimpe mtu yeyote "
+                + "PIN yako. Thibitisha muamala haraka leo hii.";
+
+        for (String sender : new String[]{"NMB", "CRDB", "AIRTEL", "YAS", "M-PESA",
+                "Airtel Money", "mixx by yas", "vodacom"}) {
+            ScamDetector.ScamResult result = ScamDetector.detect(body, sender);
+
+            assertEquals(sender + " should be trusted",
+                    ScamDetector.SAFE, result.classification);
+            assertEquals(sender + " should not be scored", 0, result.score);
+            assertTrue(sender + " should say why it was trusted",
+                    result.matchedRules.contains(ScamDetector.TRUSTED_SENDER_RULE));
+            assertFalse(sender + " should give the screen a reason",
+                    result.indicators.isEmpty());
+        }
+    }
+
+    @Test
+    public void shortCode_isSafe() {
+        ScamDetector.ScamResult result = ScamDetector.detect(
+                "Thibitisha akaunti yako haraka, tuma PIN yako sasa hivi.", "15040");
+
+        assertEquals(ScamDetector.SAFE, result.classification);
+        assertTrue(result.matchedRules.contains(ScamDetector.TRUSTED_SENDER_RULE));
+    }
+
+    /**
+     * Every sender ID in the project's "ScamShield Tanzania Incoming SMS
+     * Whitelist" table, spelled the way the table spells it.
+     *
+     * <p>Listed one alias per line rather than folded into the registry's own
+     * shape, so that this test still fails if {@code collapse} stops handling a
+     * separator the table actually uses - the space in "HALO PESA", the hyphen
+     * in "T-PESA", the ampersand in "I&amp;M". Reading the set back through the
+     * same helper it was written with would prove nothing.
+     */
+    @Test
+    public void everySenderIdInTheWhitelistTable_isTrusted() {
+        String[] table = {
+            "M-PESA", "MPESA",                      // 1  M-Pesa
+            "VODACOM", "Vodacom",                   // 2  Vodacom Tanzania
+            "MIXX", "MIXX BY YAS", "Mixx",          // 3  Mixx by Yas
+            "YAS", "Yas",                           // 4  Yas Tanzania
+            "AIRTEL MONEY", "AIRTELMONEY",          // 5  Airtel Money
+            "AIRTEL", "Airtel",                     // 6  Airtel Tanzania
+            "HALOPESA", "HALO PESA",                // 7  HaloPesa
+            "HALOTEL", "Halotel",                   // 8  Halotel
+            "TTCL",                                 // 9  TTCL
+            "T-PESA", "TPESA",                      // 10 T-Pesa
+            "NMB",                                  // 11 NMB Bank
+            "CRDB",                                 // 12 CRDB Bank
+            "NBC",                                  // 13 NBC Bank
+            "ABSA",                                 // 14 Absa Bank Tanzania
+            "STANBIC",                              // 15 Stanbic Bank Tanzania
+            "STANCHART",                            // 16 Standard Chartered
+            "EXIM",                                 // 17 Exim Bank Tanzania
+            "DTB",                                  // 18 Diamond Trust Bank
+            "EQUITY",                               // 19 Equity Bank Tanzania
+            "KCB",                                  // 20 KCB Bank Tanzania
+            "NCBA",                                 // 21 NCBA Bank Tanzania
+            "IMBANK", "I&M",                        // 22 I&M Bank Tanzania
+            "AMANA",                                // 23 Amana Bank
+            "AZANIA",                               // 24 Azania Bank
+            "UBA",                                  // 25 UBA Tanzania
+            "ECOBANK",                              // 26 Ecobank Tanzania
+            "BOA",                                  // 27 Bank of Africa Tanzania
+            "PBZ",                                  // 28 People's Bank of Zanzibar
+            "TCB",                                  // 29 Tanzania Commercial Bank
+            "MKOMBOZI",                             // 30 Mkombozi Bank
+        };
+
+        // Wording a real alert is entitled to use and the rules read worst.
+        String body = "Ndugu mteja, salio lako ni Tsh 62,300. Thibitisha muamala "
+                + "haraka leo hii, usimpe mtu yeyote PIN yako.";
+
+        for (String sender : table) {
+            ScamDetector.ScamResult result = ScamDetector.detect(body, sender);
+
+            assertTrue(sender + " is in the whitelist table but was not trusted",
+                    result.matchedRules.contains(ScamDetector.TRUSTED_SENDER_RULE));
+            assertEquals(sender + " should be safe", ScamDetector.SAFE,
+                    result.classification);
+        }
+    }
+
+    /**
+     * The numeric codes the table names, which reach the gate through the
+     * short-code rule rather than the registry. Pinned so that narrowing the
+     * digit range cannot silently drop a bank's documented code.
+     */
+    @Test
+    public void documentedBankShortCodes_areTrusted() {
+        String body = "Thibitisha akaunti yako haraka, tuma PIN yako sasa hivi.";
+
+        // 15166, 15566 - NMB; 15089 - CRDB.
+        for (String sender : new String[]{"15166", "15566", "15089"}) {
+            ScamDetector.ScamResult result = ScamDetector.detect(body, sender);
+
+            assertTrue(sender + " is a documented bank short code but was not trusted",
+                    result.matchedRules.contains(ScamDetector.TRUSTED_SENDER_RULE));
+        }
+    }
+
+    /**
+     * The safety property the whole gate rests on. Borrowing a trusted name is
+     * how the impersonation scams in the corpus address themselves, so a sender
+     * is trusted only when it matches a registered ID exactly - never as a
+     * prefix, a suffix or a substring.
+     */
+    @Test
+    public void senderIdsBuiltOutOfATrustedName_areNotTrusted() {
+        String body = "Laini yako itasimamishwa leo. Bofya bit.ly/nmb-update "
+                + "kuthibitisha taarifa zako za benki.";
+
+        // The short bank IDs the whitelist table adds - BOA, UBA, TCB, DTB - are
+        // three letters, so the names built out of them are the easiest of all
+        // to register. Exact matching is the only thing keeping them out.
+        for (String sender : new String[]{"NMB-INFO", "AIRTEL-PR", "NMBB", "AIRTEL2",
+                "YASPROMO", "CRDB SUPPORT", "MY-NMB", "NMB.SECURE",
+                "BOA-TZ", "UBATZ", "TCB2", "DTB-ALERT", "EQUITY-INFO", "I&M2"}) {
+            ScamDetector.ScamResult result = ScamDetector.detect(body, sender);
+
+            assertFalse(sender + " must not be trusted",
+                    result.matchedRules.contains(ScamDetector.TRUSTED_SENDER_RULE));
+            assertTrue(sender + " must still be scored and flagged",
+                    result.shouldAlert());
+        }
+    }
+
+    /**
+     * An absent sender must never be trusted: the corpus tests score message
+     * bodies with no originating address, and a gate that let those through
+     * would silence the detector completely.
+     */
+    @Test
+    public void absentSender_isNotTrusted() {
+        String body = "Hongera umeshinda milioni 2. Lipa Tsh 5,000 kwa wakala "
+                + "kabla ya kupokea zawadi yako.";
+
+        // "-" is what AnalyzeFragment passes when the sender field is left
+        // blank, and it collapses to nothing once separators are removed.
+        for (String sender : new String[]{null, "", "   ", "-", ". . .", "_"}) {
+            ScamDetector.ScamResult result = ScamDetector.detect(body, sender);
+
+            assertFalse("sender [" + sender + "] must not be trusted",
+                    result.matchedRules.contains(ScamDetector.TRUSTED_SENDER_RULE));
+            assertTrue("sender [" + sender + "] must still be flagged",
+                    result.shouldAlert());
+        }
+    }
+
+    /** A subscriber number is never a short code, however it is written. */
+    @Test
+    public void mobileNumbers_areNotMistakenForShortCodes() {
+        String body = "Tuma PIN yako haraka sasa hivi kuthibitisha akaunti yako.";
+
+        for (String sender : new String[]{"0712000111", "+255712000111", "255712000111",
+                "+1555", "0712 000 111"}) {
+            ScamDetector.ScamResult result = ScamDetector.detect(body, sender);
+
+            assertFalse(sender + " must not be trusted",
+                    result.matchedRules.contains(ScamDetector.TRUSTED_SENDER_RULE));
+        }
     }
 
     @Test

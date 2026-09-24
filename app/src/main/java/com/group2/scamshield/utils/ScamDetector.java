@@ -16,6 +16,12 @@ import java.util.regex.Pattern;
  * <p>The pipeline is fixed and has no learned parameters:
  *
  * <ol>
+ *   <li><b>Trust the sender</b> - a message that arrived on a short code or on a
+ *       registered operator, bank or authority sender ID is returned safe before
+ *       any rule runs. Those senders are reserved by the networks and cannot be
+ *       originated from a handset, so scoring their wording only ever produced
+ *       false alarms on the OTPs and balance alerts they exist to send. See
+ *       {@link WhitelistUtils#trustReason(String)} for what counts and why.</li>
  *   <li><b>Normalise</b> - Unicode folding, accent and invisible-character removal,
  *       lower-casing and whitespace collapsing, so one spelling of a word is enough.</li>
  *   <li><b>Canonicalise</b> - undo the two evasion tricks that break plain keyword
@@ -37,6 +43,14 @@ public final class ScamDetector {
     public static final String SUSPICIOUS = "SUSPICIOUS";
     public static final String SCAM = "SCAM";
 
+    /**
+     * Audit identifier recorded when the trusted-sender gate, rather than the
+     * rule table, produced the verdict. Named in the same space as the rules so
+     * that {@link ScamResult#matchedRules} still answers "what decided this?"
+     * with a single lookup.
+     */
+    public static final String TRUSTED_SENDER_RULE = "W01_TRUSTED_SENDER";
+
     public static final int SUSPICIOUS_THRESHOLD = 30;
     public static final int SCAM_THRESHOLD = 60;
     public static final int MAX_SCORE = 100;
@@ -49,6 +63,8 @@ public final class ScamDetector {
 
     /** Weight added when two rules that are innocent apart fire together. */
     private static final int CONTEXT_WEIGHT = 20;
+
+    private static final String SAFE_TYPE = "Safe Message";
 
     private static final String GENERAL = "Suspicious Message";
     private static final String MONEY = "Money Request";
@@ -288,12 +304,11 @@ public final class ScamDetector {
                 -20, "Carries the reference numbers of a completed transaction receipt",
                 GENUINE, DetectionRule.Field.MESSAGE));
 
-        rules.add(rule("S03_TRUSTED_SENDER_ID",
-                "^(?:m-?pesa|vodacom|airtel(?:\\s?money)?|tigopesa|tigo|mixx(?:\\s?by\\s?yas)?"
-                        + "|yas|halopesa|halotel|ttcl|nmb|nmbbank|crdb|nbc|azampesa|selcom"
-                        + "|tcra|nida)$",
-                -20, "Arrived on a registered sender ID that subscribers cannot send from",
-                GENUINE, DetectionRule.Field.SENDER));
+        // S03_TRUSTED_SENDER_ID used to sit here and deduct 20 for a registered
+        // sender ID. It is gone rather than retuned: the same senders are now
+        // decided before the table runs, by WhitelistUtils, so the rule could
+        // never fire again, and a dead rule in a table meant to be audited is
+        // worse than no rule. The senders it listed were carried over verbatim.
 
         RULES = Collections.unmodifiableList(rules);
     }
@@ -313,6 +328,17 @@ public final class ScamDetector {
     }
 
     public static ScamResult detect(String message, String sender) {
+        // Before any rule runs: operators, banks and authorities reach a handset
+        // on senders no subscriber can originate, so their traffic is taken at
+        // face value rather than scored. The short-circuit sits here, in the one
+        // method every screen calls, so the live SMS receiver, the paste-and-scan
+        // screen and a re-read of a stored row cannot reach different verdicts
+        // for the same message.
+        String trustReason = WhitelistUtils.trustReason(sender);
+        if (trustReason != null) {
+            return trustedSenderResult(message, sender, trustReason);
+        }
+
         String normalizedMessage = normalize(message);
         String normalizedSender = normalize(sender);
         String canonicalMessage = canonicalize(message);
@@ -377,7 +403,7 @@ public final class ScamDetector {
         String category = strongestCategory(categoryScores);
         String displayType;
         if (SAFE.equals(classification)) {
-            displayType = "Safe Message";
+            displayType = SAFE_TYPE;
         } else if (SUSPICIOUS.equals(classification)) {
             displayType = "Suspicious: " + category;
         } else {
@@ -386,6 +412,34 @@ public final class ScamDetector {
 
         return new ScamResult(classification, score, displayType, dangerLevel,
                 indicators, matchedIds, canonicalMessage);
+    }
+
+    /**
+     * The verdict for traffic that arrived on a sender the networks reserve.
+     *
+     * <p>Scored zero rather than merely reduced, because a partial deduction is
+     * what the old {@code S03_TRUSTED_SENDER_ID} rule applied and it was not
+     * enough: a genuine bank OTP carries a credential word, a deadline and an
+     * amount, which together out-weighed the deduction and warned the user about
+     * their own bank. The screen still gets a reason to show, so a safe verdict
+     * here reads as a decision the app made rather than as nothing having matched.
+     *
+     * <p>Note that the whitelist table this registry comes from asks for the
+     * opposite: it says a whitelisted sender should be "a recognized
+     * institutional source, not proof that the message is safe", and that
+     * content should still be analysed. That was put to the project owner and
+     * declined - the sender decides here, and the message is not read. Do not
+     * "fix" this by letting rules run behind the gate without asking again;
+     * what it costs is recorded in {@code TRUSTED_SENDER_BLIND_SPOT}.
+     */
+    private static ScamResult trustedSenderResult(String message, String sender,
+                                                  String trustReason) {
+        List<String> indicators = new ArrayList<>();
+        indicators.add(describe(trustReason, normalize(sender)));
+        List<String> matched = new ArrayList<>();
+        matched.add(TRUSTED_SENDER_RULE);
+        return new ScamResult(SAFE, 0, SAFE_TYPE, RiskUi.SAFE,
+                indicators, matched, canonicalize(message));
     }
 
     /**

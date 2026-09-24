@@ -24,8 +24,11 @@ import static org.junit.Assert.assertTrue;
  * guard. This one was not, so its numbers are the honest ones - and lower.
  *
  * <p>The corpus carries message bodies only, with no originating address, so
- * every sender-dependent rule sits idle here: {@code S03_TRUSTED_SENDER_ID},
+ * every sender-dependent rule sits idle here: the trusted-sender gate,
  * {@code C04_BRAND_MISMATCH} and the sender half of {@code R01_KNOWN_NUMBER}.
+ * An absent sender is never a trusted one, so the gate leaves this corpus to
+ * the rules - which is what makes these figures comparable with the ones
+ * measured before the gate existed.
  * Recall on a handset, where the sender is known, should be better than the
  * figure this test prints. See {@code app/src/test/resources/README.md} for the
  * rest of the caveats and for the scam families still missed.
